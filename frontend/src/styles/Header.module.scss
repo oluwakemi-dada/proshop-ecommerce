@@ -51,6 +51,10 @@
   &::placeholder {
     font-family: 'Montserrat', sans-serif;
   }
+
+  @media (max-width: 350px) {
+    width: 20rem;
+  }
 }
 
 .searchBtn {
