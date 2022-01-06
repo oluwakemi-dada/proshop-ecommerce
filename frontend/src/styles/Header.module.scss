@@ -1,0 +1,113 @@
+@mixin flexColumnCenter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+@mixin flexRow {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.nav {
+  @include flexRow;
+}
+
+.searchInputBtn {
+  @media (max-width: 1000px) {
+    margin-bottom: 2rem;
+  }
+}
+
+.searchInputBtn {
+  @include flexRow;
+}
+
+.cartSignIn {
+  @include flexRow;
+  @media (max-width: 1000px) {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.logo {
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.searchInput {
+  height: 4.25rem;
+  padding: 0 2.5rem;
+  width: 23rem;
+  border: 0;
+  outline: 0;
+  color: #171818;
+
+  &::placeholder {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
+.searchBtn {
+  @include flexColumnCenter;
+  height: 4.25rem;
+  margin-left: 1rem;
+  padding: 0 0.6rem;
+  border: 2px solid #4bbf73;
+  color: #4bbf73;
+  transition: all 0.3s;
+  cursor: pointer;
+  font-size: 1.2rem;
+
+  &:hover {
+    background: #4bbf73;
+    color: #fff;
+  }
+}
+
+.cartSignIn {
+  color: #b4b6b8;
+  font-size: 1.3rem;
+  font-weight: 500;
+}
+
+.cart,
+.signIn {
+  @include flexRow;
+  cursor: pointer;
+  transition: 0.15s;
+
+  &:hover {
+    color: #fff;
+  }
+
+  span {
+    margin-left: 0.5rem;
+  }
+}
+
+.cart {
+  margin-right: 2rem;
+
+  @media (max-width: 1000px) {
+    margin-bottom: 1rem;
+  }
+}
+
+.menuIcon {
+  color: #b4b6b8;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
+}
