@@ -17,6 +17,7 @@ body {
   background-color: #fff;
   color: #55595c;
   min-height: 100vh;
+  // overflow-x: hidden;
 }
 
 ul {
@@ -28,12 +29,30 @@ a {
   color: #55595c;
 }
 
+img {
+  width: 100%;
+}
+
 button {
   cursor: pointer;
 }
 
 main {
   min-height: 80vh;
+}
+
+h1 {
+  font-weight: 500;
+  font-size: 2.8rem;
+  color: #000;
+
+  @media (max-width: 700px) {
+    font-size: 2.5rem;
+  }
+
+  @media (max-width: 450px) {
+    font-size: 2.3rem;
+  }
 }
 
 .app-main {
@@ -44,7 +63,6 @@ main {
   width: 100%;
   max-width: 150rem;
   margin: 0 auto;
-
 
   @media (max-width: 1600px) {
     max-width: 125rem;
@@ -68,10 +86,22 @@ main {
 
   @media (max-width: 700px) {
     max-width: 100%;
-    padding: 0 5rem;
+    padding: 0 10rem;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0 7rem;
   }
 
   @media (max-width: 550px) {
-    padding: 0 2.7rem;
+    padding: 0 4rem;
+  }
+
+  @media (max-width: 400px) {
+    padding: 0 3rem;
+  }
+
+  @media (max-width: 350px) {
+    padding: 0 2.5rem;
   }
 }
