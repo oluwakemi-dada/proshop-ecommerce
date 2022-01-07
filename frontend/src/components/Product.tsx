@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import styles from '../styles/Product.module.scss';
+import Rating from './Rating';
 import { ProductTypes } from '../../types';
 
 const Product: FC<{ product: ProductTypes }> = ({ product }) => {
@@ -12,13 +13,14 @@ const Product: FC<{ product: ProductTypes }> = ({ product }) => {
         <a href={`/product/${product._id}`}>
           <div className={styles.productName}>{product.name}</div>
         </a>
-        <div className={styles.ratingReview}>
-          <div>{product.rating}</div>
-          <div className={styles.reviewCount}>
-            {product.numReviews}
-            {product.numReviews === 1 ? ' review' : ' reviews'}
-          </div>
-        </div>
+
+        <Rating
+          value={product.rating}
+          text={`${product.numReviews} ${
+            product.numReviews === 1 ? ' review' : ' reviews'
+          }`}
+        />
+
         <div className={styles.price}>${product.price}</div>
       </div>
     </div>

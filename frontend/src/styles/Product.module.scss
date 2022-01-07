@@ -16,20 +16,24 @@
   }
 }
 
-.ratingReview {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin: 1rem 0;
-}
-
-.reviewCount {
-  margin-left: 0.8rem;
-}
-
 .price {
   font-weight: 500;
   font-size: 2.4rem;
   color: #333;
   letter-spacing: 0.3rem;
+}
+
+// RATING
+.rating {
+  margin: 1rem 0 0.4rem 0;
+}
+
+.star {
+  color: #f8e825;
+  margin-right: 0.3rem;
+  font-size: 1.6rem;
+}
+
+.ratingText {
+  margin-left: .7rem;
 }
