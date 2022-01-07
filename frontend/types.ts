@@ -10,3 +10,4 @@ export interface ProductTypes {
   rating: number;
   numReviews: number;
 }
+
