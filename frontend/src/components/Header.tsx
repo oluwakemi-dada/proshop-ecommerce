@@ -1,4 +1,5 @@
 import { FC, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { FaShoppingCart, FaUser, FaTimes } from 'react-icons/fa';
 import { RiMenu3Line } from 'react-icons/ri';
@@ -46,7 +47,9 @@ const Header: FC = () => {
     <StyledHeader clicked={clicked}>
       <div className='container'>
         <nav className={styles.nav}>
-          <h1 className={styles.logo}>PROSHOP</h1>
+          <Link to='/'>
+            <h1 className={styles.logo}>PROSHOP</h1>
+          </Link>
           <div className={styles.menuIcon} onClick={() => setClicked(!clicked)}>
             {clicked ? <FaTimes /> : <RiMenu3Line />}
           </div>
@@ -60,14 +63,18 @@ const Header: FC = () => {
               <div className={styles.searchBtn}>SEARCH</div>
             </div>
             <div className={styles.cartSignIn}>
-              <div className={styles.cart}>
-                <FaShoppingCart />
-                <span>CART</span>
-              </div>
-              <div className={styles.signIn}>
-                <FaUser />
-                <span>SIGN IN</span>
-              </div>
+              <Link to='/cart'>
+                <div className={styles.cart}>
+                  <FaShoppingCart />
+                  <span>CART</span>
+                </div>
+              </Link>
+              <Link to='/login'>
+                <div className={styles.signIn}>
+                  <FaUser />
+                  <span>SIGN IN</span>
+                </div>
+              </Link>
             </div>
           </NavMenu>
         </nav>

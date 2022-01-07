@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import { Link } from 'react-router-dom';
 import styles from '../styles/Product.module.scss';
 import Rating from './Rating';
 import { ProductTypes } from '../../types';
@@ -6,13 +7,13 @@ import { ProductTypes } from '../../types';
 const Product: FC<{ product: ProductTypes }> = ({ product }) => {
   return (
     <div className={styles.card}>
-      <a href={`/product/${product._id}`}>
+      <Link to={`/product/${product._id}`}>
         <img src={product.image} alt='' />
-      </a>
+      </Link>
       <div className={styles.productDetails}>
-        <a href={`/product/${product._id}`}>
+        <Link to={`/product/${product._id}`}>
           <div className={styles.productName}>{product.name}</div>
-        </a>
+        </Link>
 
         <Rating
           value={product.rating}
