@@ -1,12 +1,27 @@
-import { FC } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router-dom';
+import axios from 'axios';
 import Rating from '../components/Rating';
-import products from '../products';
 import styles from '../styles/ProductScreen.module.scss';
+import {ProductTypes} from '../../types'
 
 const ProductScreen = ({ match }: RouteComponentProps<{ id?: string }>) => {
-  const product = products.find((p) => p._id === match.params.id);
+  const [product, setProduct] = useState<ProductTypes>();
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const res = await axios.get(`/api/products/${match.params.id}`);
+        setProduct(res.data);
+      } catch (err) {
+        console.log('Something went wrong');
+      }
+    };
+
+    fetchProduct();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <>
