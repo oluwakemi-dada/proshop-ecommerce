@@ -1,0 +1,15 @@
+{
+  "name": "proshop",
+  "version": "1.0.0",
+  "description": "E-commerce app",
+  "main": "server.js",
+  "repository": "https://github.com/oluwakemi-dada/proshop-ecommerce.git",
+  "scripts": {
+    "start": "node backend/server"
+  },
+  "author": "Oluwakemi Dada",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
