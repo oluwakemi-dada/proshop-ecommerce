@@ -20,9 +20,9 @@ const HomeScreen: FC = () => {
     fetchProducts();
     // eslint-disable-next-line
   }, []);
-
   return (
     <>
+      <h1>LATEST PRODUCTS</h1>
       <div className={styles.productContainer}>
         {products.map((product) => (
           <Product key={product._id} product={product} />
