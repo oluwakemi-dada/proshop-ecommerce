@@ -4,7 +4,7 @@ import { RouteComponentProps } from 'react-router-dom';
 import axios from 'axios';
 import Rating from '../components/Rating';
 import styles from '../styles/ProductScreen.module.scss';
-import { ProductTypes } from '../../types';
+import { ProductTypes } from '../types';
 
 const ProductScreen = ({ match }: RouteComponentProps<{ id?: string }>) => {
   const [product, setProduct] = useState<ProductTypes>();

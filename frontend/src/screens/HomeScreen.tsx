@@ -1,33 +1,34 @@
-import axios from 'axios';
-import { FC, useState, useEffect } from 'react';
+import { FC, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Product from '../components/Product';
 import styles from '../styles/HomeScreen.module.scss';
-import { ProductTypes } from '../../types';
+import { ReduxState } from '../types';
+import { listProducts } from '../actions/productActions';
 
 const HomeScreen: FC = () => {
-  const [products, setProducts] = useState<ProductTypes[]>([]);
+  const dispatch = useDispatch();
+  const productList = useSelector((state: ReduxState) => state.productList);
+
+  const { loading, error, products } = productList;
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      try {
-        const res = await axios.get('/api/products');
-        setProducts(res.data);
-      } catch (err) {
-        console.log('Something went wrong');
-      }
-    };
+    dispatch(listProducts());
+  }, [dispatch]);
 
-    fetchProducts();
-    // eslint-disable-next-line
-  }, []);
   return (
     <>
       <h1>LATEST PRODUCTS</h1>
-      <div className={styles.productContainer}>
-        {products.map((product) => (
-          <Product key={product._id} product={product} />
-        ))}
-      </div>
+      {loading ? (
+        <h2>Loading</h2>
+      ) : error ? (
+        <h3>{error}</h3>
+      ) : (
+        <div className={styles.productContainer}>
+          {products.map((product) => (
+            <Product key={product._id} product={product} />
+          ))}
+        </div>
+      )}
     </>
   );
 };

@@ -2,7 +2,7 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Product.module.scss';
 import Rating from './Rating';
-import { ProductTypes } from '../../types';
+import { ProductTypes } from '../types';
 
 const Product: FC<{ product: ProductTypes }> = ({ product }) => {
   return (
