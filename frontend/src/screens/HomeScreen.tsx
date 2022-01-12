@@ -1,6 +1,9 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Product from '../components/Product';
+import Loader from '../components/Loader';
 import styles from '../styles/HomeScreen.module.scss';
 import { ReduxState } from '../types';
 import { listProducts } from '../actions/productActions';
@@ -15,13 +18,18 @@ const HomeScreen: FC = () => {
     dispatch(listProducts());
   }, [dispatch]);
 
+  const showError = () => {
+    toast.error(error);
+  };
+
   return (
     <>
       <h1>LATEST PRODUCTS</h1>
+      <ToastContainer />
       {loading ? (
-        <h2>Loading</h2>
+        <Loader />
       ) : error ? (
-        <h3>{error}</h3>
+        showError()
       ) : (
         <div className={styles.productContainer}>
           {products.map((product) => (
