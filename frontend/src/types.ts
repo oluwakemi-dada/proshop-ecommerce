@@ -12,9 +12,17 @@ export interface ProductTypes {
 }
 
 // REDUX
-export interface ReduxState {
+export interface ProductListState {
   productList: {
     products: ProductTypes[];
+    loading: boolean;
+    error: any;
+  };
+}
+
+export interface ProductDetailsState {
+  productDetails: {
+    product: ProductTypes;
     loading: boolean;
     error: any;
   };
