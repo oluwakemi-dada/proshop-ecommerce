@@ -2,7 +2,12 @@ import { FC } from 'react';
 import { FaStar, FaRegStar, FaStarHalfAlt } from 'react-icons/fa';
 import styles from '../styles/Product.module.scss';
 
-const Rating: FC<{ value: any; text: any }> = ({ value, text }) => {
+interface RatingProps {
+  value: number;
+  text: string;
+}
+
+const Rating: FC<RatingProps> = ({ value, text }) => {
   return (
     <div className={styles.rating}>
       <span className={styles.star}>

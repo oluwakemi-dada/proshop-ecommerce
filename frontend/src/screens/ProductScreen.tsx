@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastContainer, toast } from 'react-toastify';
+import { RouteComponentProps } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
-import { RouteComponentProps } from 'react-router-dom';
 import styles from '../styles/ProductScreen.module.scss';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
@@ -11,17 +11,25 @@ import { ReduxState } from '../types/index';
 import { AppDispatch } from '../store';
 import { listProductDetails } from '../actions/productActions';
 
+interface MatchParams {
+  id: string;
+}
+
+interface ProductScreenProps extends RouteComponentProps<MatchParams> {}
+
 const ProductScreen = ({
-  match,
+  match: {
+    params: { id },
+  },
   history,
-}: RouteComponentProps<{ id?: string }>) => {
+}: ProductScreenProps) => {
   const [qty, setQty] = useState<number>(0);
 
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(listProductDetails(match.params.id!));
-  }, [match, dispatch]);
+    dispatch(listProductDetails(id));
+  }, [id, dispatch]);
 
   const productDetails = useSelector(
     (state: ReduxState) => state.productDetails
@@ -34,7 +42,7 @@ const ProductScreen = ({
   };
 
   const addToCartHandler = () => {
-    history.push(`/cart/${match.params.id}?qty=${qty}`);
+    history.push(`/cart/${id}?qty=${qty}`);
   };
 
   const productDisplay = () => {

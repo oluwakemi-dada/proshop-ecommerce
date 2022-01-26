@@ -2,9 +2,13 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../styles/Product.module.scss';
 import Rating from './Rating';
-import { ProductTypes } from '../types';
+import { Product as ProductType } from '../types/index';
 
-const Product: FC<{ product: ProductTypes }> = ({ product }) => {
+interface ProductProps {
+  product: ProductType;
+}
+
+const Product: FC<ProductProps> = ({ product }) => {
   return (
     <div className={styles.card}>
       <Link to={`/product/${product._id}`}>

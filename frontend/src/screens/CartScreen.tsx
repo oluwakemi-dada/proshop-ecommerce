@@ -1,4 +1,6 @@
 import { FC } from 'react';
+// import { ReduxState } from '../types/index';
+// import { AppDispatch } from '../store';
 
 const CartScreen: FC = () => {
   return (

@@ -5,18 +5,19 @@ import 'react-toastify/dist/ReactToastify.css';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 import styles from '../styles/HomeScreen.module.scss';
-import { ProductListState } from '../types';
+import { ReduxState } from '../types/index';
+import { AppDispatch } from '../store';
 import { listProducts } from '../actions/productActions';
 
 const HomeScreen: FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(listProducts());
   }, [dispatch]);
   
   const productList = useSelector(
-    (state: ProductListState) => state.productList
+    (state: ReduxState) => state.productList
   );
 
   const { loading, error, products } = productList;

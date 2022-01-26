@@ -9,8 +9,7 @@ export interface Product {
   countInStock: number;
   rating: number;
   numReviews: number;
-  // reviews: Review[];
-  reviews: Array<Review>;
+  reviews: Review[];
 }
 
 export interface Review {
