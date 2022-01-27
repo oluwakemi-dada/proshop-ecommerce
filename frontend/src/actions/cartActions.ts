@@ -24,3 +24,17 @@ export const addToCart =
       JSON.stringify(getState().cart.cartItems)
     );
   };
+
+export const removeFromCart =
+  (id: string): AppThunk =>
+  async (dispatch, getState) => {
+    dispatch({
+      type: CartActionTypes.CART_REMOVE_ITEM,
+      payload: id,
+    });
+
+    localStorage.setItem(
+      'cartItems',
+      JSON.stringify(getState().cart.cartItems)
+    );
+  };

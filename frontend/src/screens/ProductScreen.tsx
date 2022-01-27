@@ -23,7 +23,7 @@ const ProductScreen = ({
   },
   history,
 }: ProductScreenProps) => {
-  const [qty, setQty] = useState<number>(0);
+  const [qty, setQty] = useState<number>(1);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -91,6 +91,7 @@ const ProductScreen = ({
               <div className={styles.itemQty}>
                 <div>Qty:</div>
                 <select
+                
                   value={qty}
                   onChange={(e) => setQty(parseInt(e.target.value))}
                 >
