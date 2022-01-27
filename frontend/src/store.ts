@@ -9,6 +9,7 @@ import {
 } from './reducers';
 
 export type AppDispatch = ThunkDispatch<ReduxState, unknown, Action<string>>;
+
 export type AppThunk = ThunkAction<
   Promise<void>,
   ReduxState,
