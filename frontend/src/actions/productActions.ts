@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { errorHandler } from './errorHandler';
 import {
   ProductListActionTypes,
   ProductDetailsActionTypes,
@@ -21,10 +22,7 @@ export const listProducts = (): AppThunk => async (dispatch) => {
   } catch (error: any) {
     dispatch({
       type: ProductListActionTypes.PRODUCT_LIST_FAILURE,
-      payload:
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message,
+      payload: errorHandler(error),
     });
   }
 };
@@ -44,10 +42,7 @@ export const listProductDetails =
     } catch (error: any) {
       dispatch({
         type: ProductDetailsActionTypes.PRODUCT_DETAILS_FAILURE,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        payload: errorHandler(error),
       });
     }
   };

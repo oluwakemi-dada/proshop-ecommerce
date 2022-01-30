@@ -12,7 +12,7 @@ const initialProductListState: ProductListState = {
   loading: false,
 };
 
-export const productListReducers = (
+export const productListReducer = (
   state = initialProductListState,
   action: ProductListAction
 ) => {
@@ -44,7 +44,7 @@ const initialProductDetailsState: ProductDetailsState = {
   loading: false,
 };
 
-export const productDetailsReducers = (
+export const productDetailsReducer = (
   state = initialProductDetailsState,
   action: ProductDetailsAction
 ) => {
