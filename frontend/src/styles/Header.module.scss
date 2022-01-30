@@ -46,11 +46,6 @@
   width: 23rem;
   border: 0;
   outline: 0;
-  color: #171818;
-
-  &::placeholder {
-    font-family: 'Montserrat', sans-serif;
-  }
 
   @media (max-width: 350px) {
     width: 20rem;

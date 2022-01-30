@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 2rem;
+}
+
+.container div {
+  width: 60rem;
+
+  @media (max-width: 700px) {
+    width: 50rem;
+  }
+
+  @media (max-width: 600px) {
+    width: 40rem;
+  }
+
+  @media (max-width: 450px) {
+    width: 100%;
+  }
+}

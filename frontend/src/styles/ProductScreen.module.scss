@@ -95,7 +95,6 @@
 @mixin AddToCart {
   padding: 1.4rem 0;
   color: #fff;
-  background: #070707;
   width: 100%;
   font-weight: 500;
 }
@@ -103,7 +102,6 @@
 .addToCartBtn {
   @include AddToCart;
   background: #070707;
-
   &:hover {
     background: #222222;
   }

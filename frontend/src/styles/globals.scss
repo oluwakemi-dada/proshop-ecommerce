@@ -38,6 +38,14 @@ button {
   border: 0;
 }
 
+input {
+  color: #171818;
+
+  &::placeholder {
+    font-family: 'Montserrat', sans-serif;
+  }
+}
+
 main {
   min-height: 80vh;
 }
