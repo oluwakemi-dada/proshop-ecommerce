@@ -13,10 +13,10 @@ const App = () => {
       <Header />
       <main className='app-main'>
         <div className='container'>
-          <Route path='/' component={HomeScreen} exact />
+          <Route path='/login' component={LoginScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/cart/:id?' component={CartScreen} />
-          <Route path='/login' component={LoginScreen} />
+          <Route path='/' component={HomeScreen} exact />
         </div>
       </main>
       <Footer />

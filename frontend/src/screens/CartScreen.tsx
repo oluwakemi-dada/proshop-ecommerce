@@ -49,7 +49,9 @@ const CartScreen = ({
       <h1>SHOPPING CART</h1>
       <div className={styles.itemContainer}>
         {cartItems.length === 0 ? (
-          <Message msg='Your cart is empty' />
+          <div className={styles.alertWrapper}>
+            <Message msg='Your cart is empty' variant='default' />
+          </div>
         ) : (
           <div>
             {cartItems.map((item) => (

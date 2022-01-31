@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ToastContainer, toast } from 'react-toastify';
 import { RouteComponentProps } from 'react-router-dom';
-import 'react-toastify/dist/ReactToastify.css';
 import { Link } from 'react-router-dom';
 import styles from '../styles/ProductScreen.module.scss';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
+import Message from '../components/Message';
 import { ReduxState } from '../types/index';
 import { AppDispatch } from '../store';
 import { listProductDetails } from '../actions/productActions';
@@ -37,10 +36,6 @@ const ProductScreen = ({
 
   const { loading, error, product } = productDetails;
 
-  const showError = () => {
-    toast.error(error);
-  };
-
   const addToCartHandler = () => {
     history.push(`/cart/${id}?qty=${qty}`);
   };
@@ -49,7 +44,7 @@ const ProductScreen = ({
     if (loading) {
       return <Loader />;
     } else if (error) {
-      showError();
+      return <Message msg={error} variant='danger' />;
     } else if (product) {
       return (
         <div className={styles.contents}>
@@ -91,7 +86,6 @@ const ProductScreen = ({
               <div className={styles.itemQty}>
                 <div>Qty:</div>
                 <select
-                
                   value={qty}
                   onChange={(e) => setQty(parseInt(e.target.value))}
                 >
@@ -125,11 +119,9 @@ const ProductScreen = ({
 
   return (
     <>
-      <ToastContainer />
       <Link to='/'>
         <div className={styles.back}>GO BACK</div>
       </Link>
-
       {productDisplay()}
     </>
   );
