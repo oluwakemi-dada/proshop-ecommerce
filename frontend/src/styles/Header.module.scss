@@ -25,22 +25,24 @@
   @include flexRow;
 }
 
-.cartSignInUser {
-  @include flexRow;
-  font-size: 1.3rem;
-  font-weight: 500;
-
-  @media (max-width: 1000px) {
-    flex-direction: column;
-    align-items: center;
-  }
-}
-
 .logo {
   color: #fff;
   font-size: 1.8rem;
   font-weight: 500;
   cursor: pointer;
+}
+
+.menuIcon {
+  color: #b4b6b8;
+  font-size: 1.8rem;
+  cursor: pointer;
+  display: none;
+
+  @media (max-width: 1000px) {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+  }
 }
 
 .searchInput {
@@ -72,8 +74,31 @@
   }
 }
 
+.navLinks {
+  @include flexRow;
+  font-size: 1.3rem;
+  font-weight: 500;
+
+  @media (max-width: 1000px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  > * {
+    @media (max-width: 1000px) {
+      margin-bottom: 1rem;
+    }
+  }
+
+  > * > div {
+    margin-right: 2rem;
+  }
+}
+
 .cart,
-.signIn {
+.signIn,
+.user,
+.logout {
   @include flexRow;
   cursor: pointer;
   transition: 0.15s;
@@ -82,28 +107,19 @@
   &:hover {
     color: #fff;
   }
-  span {
-    margin-left: 0.5rem;
+  > * {
+    margin-right: 0.5rem;
   }
 }
 
-.cart {
-  margin-right: 2rem;
+.logout {
+  margin-right: 0 !important;
 
   @media (max-width: 1000px) {
-    margin-bottom: 1rem;
+    margin-right: 0.5rem;
   }
 }
 
-.menuIcon {
-  color: #b4b6b8;
-  font-size: 1.8rem;
-  cursor: pointer;
-  display: none;
-
-  @media (max-width: 1000px) {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
-  }
+.userIcon {
+  font-size: 1.1rem;
 }

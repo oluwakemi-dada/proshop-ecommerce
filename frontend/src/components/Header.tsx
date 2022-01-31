@@ -2,12 +2,10 @@ import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaShoppingCart, FaUser, FaTimes } from 'react-icons/fa';
-import { IoMdArrowDropdown } from 'react-icons/io';
 import { RiMenu3Line } from 'react-icons/ri';
 import styled from 'styled-components';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
-import Dropdown from './Dropdown';
 import styles from '../styles/Header.module.scss';
 
 const StyledHeader = styled.header`
@@ -19,7 +17,7 @@ const StyledHeader = styled.header`
   height: 9.3rem;
   transition: all 0.5s ease;
   margin-bottom: ${({ clicked }: { clicked: boolean }) =>
-    clicked ? '15rem' : '0'};
+    clicked ? '17rem' : '0'};
 `;
 
 const NavMenu = styled.div`
@@ -34,7 +32,7 @@ const NavMenu = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 15rem;
+    height: 17rem;
     position: absolute;
     top: 9.3rem;
     background: #343a40;
@@ -45,26 +43,9 @@ const NavMenu = styled.div`
   }
 `;
 
-const User = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  cursor: pointer;
-  transition: 0.15s;
-  color: ${({ userClicked }: { userClicked: boolean }) =>
-    userClicked ? '#fff' : '#b4b6b8'};
-
-  &:hover {
-    color: #fff;
-  }
-  div {
-    margin-right: 0.2rem;
-  }
-`;
 
 const Header: FC = () => {
   const [clicked, setClicked] = useState<boolean>(false);
-  const [userClicked, setUserClicked] = useState<boolean>(false);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -90,7 +71,7 @@ const Header: FC = () => {
               />
               <div className={styles.searchBtn}>SEARCH</div>
             </div>
-            <div className={styles.cartSignInUser}>
+            <div className={styles.navLinks}>
               <Link to='/cart'>
                 <div className={styles.cart}>
                   <FaShoppingCart />
@@ -98,17 +79,12 @@ const Header: FC = () => {
                 </div>
               </Link>
               {userInfo ? (
-                <div>
-                  <User
-                    userClicked={userClicked}
-                    onClick={() => setUserClicked(!userClicked)}
-                  >
+                <Link to=''>
+                  <div className={styles.user}>
+                    <FaUser className={styles.userIcon} />
                     <div>KEMI</div>
-                    <IoMdArrowDropdown />
-                  </User>
-                  <DropDown />
-                  {/* {userClicked && <Dropdown />} */}
-                </div>
+                  </div>
+                </Link>
               ) : (
                 <Link to='/login'>
                   <div className={styles.signIn}>
@@ -117,6 +93,9 @@ const Header: FC = () => {
                   </div>
                 </Link>
               )}
+              <Link to=''>
+                <div className={styles.logout}>LOGOUT</div>
+              </Link>
             </div>
           </NavMenu>
         </nav>
