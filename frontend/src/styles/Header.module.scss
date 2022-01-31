@@ -88,6 +88,10 @@
 
   > * > div {
     margin-right: 2rem;
+
+    @media (max-width: 1000px) {
+      margin-right: 0 !important;
+    }
   }
 }
 
@@ -110,10 +114,6 @@
 
 .logout {
   margin-right: 0 !important;
-
-  @media (max-width: 1000px) {
-    margin-right: 0.5rem;
-  }
 }
 
 .userIcon {
