@@ -1,8 +1,13 @@
 import { FC, useState } from 'react';
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 import { FaShoppingCart, FaUser, FaTimes } from 'react-icons/fa';
+import { IoMdArrowDropdown } from 'react-icons/io';
 import { RiMenu3Line } from 'react-icons/ri';
+import styled from 'styled-components';
+import { AppDispatch } from '../store';
+import { ReduxState } from '../types';
+import Dropdown from './Dropdown';
 import styles from '../styles/Header.module.scss';
 
 const StyledHeader = styled.header`
@@ -40,8 +45,31 @@ const NavMenu = styled.div`
   }
 `;
 
+const User = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  transition: 0.15s;
+  color: ${({ userClicked }: { userClicked: boolean }) =>
+    userClicked ? '#fff' : '#b4b6b8'};
+
+  &:hover {
+    color: #fff;
+  }
+  div {
+    margin-right: 0.2rem;
+  }
+`;
+
 const Header: FC = () => {
   const [clicked, setClicked] = useState<boolean>(false);
+  const [userClicked, setUserClicked] = useState<boolean>(false);
+
+  const dispatch = useDispatch<AppDispatch>();
+
+  const userLogin = useSelector((state: ReduxState) => state.userLogin);
+  const { userInfo } = userLogin;
 
   return (
     <StyledHeader clicked={clicked}>
@@ -62,19 +90,33 @@ const Header: FC = () => {
               />
               <div className={styles.searchBtn}>SEARCH</div>
             </div>
-            <div className={styles.cartSignIn}>
+            <div className={styles.cartSignInUser}>
               <Link to='/cart'>
                 <div className={styles.cart}>
                   <FaShoppingCart />
                   <span>CART</span>
                 </div>
               </Link>
-              <Link to='/login'>
-                <div className={styles.signIn}>
-                  <FaUser />
-                  <span>SIGN IN</span>
+              {userInfo ? (
+                <div>
+                  <User
+                    userClicked={userClicked}
+                    onClick={() => setUserClicked(!userClicked)}
+                  >
+                    <div>KEMI</div>
+                    <IoMdArrowDropdown />
+                  </User>
+                  <DropDown />
+                  {/* {userClicked && <Dropdown />} */}
                 </div>
-              </Link>
+              ) : (
+                <Link to='/login'>
+                  <div className={styles.signIn}>
+                    <FaUser />
+                    <span>SIGN IN</span>
+                  </div>
+                </Link>
+              )}
             </div>
           </NavMenu>
         </nav>
