@@ -5,6 +5,11 @@ import {
   UserRegisterActionTypes,
   UserRegisterState,
   UserRegisterAction,
+  UserDetailsActionTypes,
+  UserDetailsState,
+  UserDetailsAction,
+  UserUpdateProfileActionTypes,
+  UserUpdateProfileState,
 } from '../types/index';
 
 const loginInitialState: UserLoginState = {
@@ -62,6 +67,38 @@ export const userRegisterReducer = (
       };
 
     case UserRegisterActionTypes.USER_REGISTER_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+const userDetailsInitialState: UserDetailsState = {
+  loading: false,
+};
+
+export const userDetailsReducer = (
+  state = userDetailsInitialState,
+  action: UserDetailsAction
+) => {
+  switch (action.type) {
+    case UserDetailsActionTypes.USER_DETAILS_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case UserDetailsActionTypes.USER_DETAILS_SUCCESS:
+      return {
+        loading: false,
+        user: action.payload,
+      };
+
+    case UserDetailsActionTypes.USER_DETAILS_FAILURE:
       return {
         loading: false,
         error: action.payload,

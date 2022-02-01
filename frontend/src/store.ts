@@ -7,7 +7,8 @@ import {
   productDetailsReducer,
   cartReducer,
   userLoginReducer,
-  userRegisterReducer
+  userRegisterReducer,
+  userDetailsReducer,
 } from './reducers';
 
 export type AppDispatch = ThunkDispatch<ReduxState, unknown, Action<string>>;
@@ -24,7 +25,8 @@ const reducer = combineReducers({
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
-  userRegister: userRegisterReducer
+  userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
 });
 
 const items = localStorage.getItem('cartItems');
