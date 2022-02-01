@@ -1,11 +1,18 @@
-import { UserLoginActionTypes, UserLoginState, UserLoginAction } from '../types/index';
+import {
+  UserLoginActionTypes,
+  UserLoginState,
+  UserLoginAction,
+  UserRegisterActionTypes,
+  UserRegisterState,
+  UserRegisterAction,
+} from '../types/index';
 
-const initialState: UserLoginState = {
-  loading: false
+const loginInitialState: UserLoginState = {
+  loading: false,
 };
 
 export const userLoginReducer = (
-  state = initialState,
+  state = loginInitialState,
   action: UserLoginAction
 ) => {
   switch (action.type) {
@@ -28,6 +35,37 @@ export const userLoginReducer = (
 
     case UserLoginActionTypes.USER_LOGOUT:
       return {};
+
+    default:
+      return state;
+  }
+};
+
+const registerInitialState: UserRegisterState = {
+  loading: false,
+};
+
+export const userRegisterReducer = (
+  state = registerInitialState,
+  action: UserRegisterAction
+) => {
+  switch (action.type) {
+    case UserRegisterActionTypes.USER_REGISTER_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case UserRegisterActionTypes.USER_REGISTER_SUCCESS:
+      return {
+        loading: false,
+        userInfo: action.payload,
+      };
+
+    case UserRegisterActionTypes.USER_REGISTER_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
 
     default:
       return state;

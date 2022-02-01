@@ -19,13 +19,6 @@
   }
 }
 
-@mixin AddToCart {
-}
-
-.addToCartBtn {
-  @include AddToCart;
-}
-
 .submitBtn {
   padding: 1.5rem 0;
   color: #fff;
@@ -39,12 +32,14 @@
   }
 }
 
-.registerText {
+.registerText,
+.signInText {
   margin-top: 1.5rem;
   font-size: 1.5rem;
 }
 
-.registerLink > * {
+.registerLink > *,
+.signInLink > * {
   color: #000;
   margin-left: 0.2rem;
   font-size: 1.5rem;

@@ -7,16 +7,19 @@ import Loader from '../components/Loader';
 import FormContainer from '../components/FormContainer';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
-import { login } from '../actions/userActions';
+import { register } from '../actions/userActions';
 
-const LoginScreen: FC<RouteComponentProps> = ({ location, history }) => {
+const RegisterScreen: FC<RouteComponentProps> = ({ location, history }) => {
+  const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
+  const [confirmPassword, setConfirmPassword] = useState<string>('');
+  const [message, setMessage] = useState<string>(null!);
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const userLogin = useSelector((state: ReduxState) => state.userLogin);
-  const { loading, error, userInfo } = userLogin;
+  const userRegister = useSelector((state: ReduxState) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
 
   const redirect = location.search ? location.search.split('=')[1] : '/';
 
@@ -28,15 +31,29 @@ const LoginScreen: FC<RouteComponentProps> = ({ location, history }) => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(login(email, password));
+    if (password !== confirmPassword) {
+      setMessage('Passwords do not match');
+    } else {
+      dispatch(register(name, email, password));
+    }
   };
 
   return (
     <FormContainer>
-      <h1>SIGN IN</h1>
+      <h1>SIGN UP</h1>
+      {message && <Message msg={message} variant='danger' />}
       {error && <Message msg={error} variant='danger' />}
       {loading && <Loader />}
       <form onSubmit={submitHandler} className={styles.form}>
+        <div className={styles.formGroup}>
+          <label htmlFor='name'>Name</label>
+          <input
+            type='text'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder='Enter Name'
+          />
+        </div>
         <div className={styles.formGroup}>
           <label htmlFor='email'>Email Address</label>
           <input
@@ -55,15 +72,24 @@ const LoginScreen: FC<RouteComponentProps> = ({ location, history }) => {
             placeholder='Enter Password'
           />
         </div>
+        <div className={styles.formGroup}>
+          <label htmlFor='confirmPassword'>Confirm Password</label>
+          <input
+            type='password'
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder='Confirm password'
+          />
+        </div>
         <button type='submit' className={styles.submitBtn}>
-          SIGN IN
+          Register
         </button>
       </form>
-      <div className={styles.registerText}>
-        New Customer?{' '}
-        <span className={styles.registerLink}>
-          <Link to={redirect ? `/register?redirect=${redirect}` : '/register'}>
-            Register
+      <div className={styles.signInText}>
+        Have an Account?{' '}
+        <span className={styles.signInLink}>
+          <Link to={redirect ? `/login?redirect=${redirect}` : '/login'}>
+            Login
           </Link>
         </span>
       </div>
@@ -71,4 +97,4 @@ const LoginScreen: FC<RouteComponentProps> = ({ location, history }) => {
   );
 };
 
-export default LoginScreen;
+export default RegisterScreen;
