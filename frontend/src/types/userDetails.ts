@@ -2,7 +2,7 @@ import { User } from './index';
 
 export interface UserDetailsState {
   user?: User;
-  loading: boolean;
+  loading?: boolean;
   error?: any;
 }
 

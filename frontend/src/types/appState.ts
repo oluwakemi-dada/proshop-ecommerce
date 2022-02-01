@@ -4,6 +4,7 @@ import {
   CartState,
   UserLoginState,
   UserRegisterState,
+  UserDetailsState,
 } from './index';
 
 export interface ReduxState {
@@ -12,4 +13,5 @@ export interface ReduxState {
   cart: CartState;
   userLogin: UserLoginState;
   userRegister: UserRegisterState;
+  userDetails: UserDetailsState;
 }

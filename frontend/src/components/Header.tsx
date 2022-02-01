@@ -83,7 +83,7 @@ const Header: FC = () => {
                 </div>
               </Link>
               {userInfo ? (
-                <Link to=''>
+                <Link to='/profile'>
                   <div className={styles.user}>
                     <FaUser className={styles.userIcon} />
                     <div>{userInfo.name.toUpperCase()}</div>
