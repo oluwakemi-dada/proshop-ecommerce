@@ -36,3 +36,9 @@ export const login =
       });
     }
   };
+export const logout = (): AppThunk => async (dispatch) => {
+  localStorage.removeItem('userInfo');
+  dispatch({
+    type: UserLoginActionTypes.USER_LOGOUT,
+  });
+};

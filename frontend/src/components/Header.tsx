@@ -6,6 +6,7 @@ import { RiMenu3Line } from 'react-icons/ri';
 import styled from 'styled-components';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
+import { logout } from '../actions/userActions';
 import styles from '../styles/Header.module.scss';
 
 const StyledHeader = styled.header`
@@ -43,7 +44,6 @@ const NavMenu = styled.div`
   }
 `;
 
-
 const Header: FC = () => {
   const [clicked, setClicked] = useState<boolean>(false);
 
@@ -51,6 +51,10 @@ const Header: FC = () => {
 
   const userLogin = useSelector((state: ReduxState) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const logoutHandler = () => {
+    dispatch(logout());
+  };
 
   return (
     <StyledHeader clicked={clicked}>
@@ -82,7 +86,7 @@ const Header: FC = () => {
                 <Link to=''>
                   <div className={styles.user}>
                     <FaUser className={styles.userIcon} />
-                    <div>KEMI</div>
+                    <div>{userInfo.name.toUpperCase()}</div>
                   </div>
                 </Link>
               ) : (
@@ -94,7 +98,9 @@ const Header: FC = () => {
                 </Link>
               )}
               <Link to=''>
-                <div className={styles.logout}>LOGOUT</div>
+                <div onClick={logoutHandler} className={styles.logout}>
+                  LOGOUT
+                </div>
               </Link>
             </div>
           </NavMenu>
