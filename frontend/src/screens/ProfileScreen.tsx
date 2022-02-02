@@ -6,7 +6,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, updateUserProfile } from '../actions/userActions';
 
 const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
   const [name, setName] = useState<string>('');
@@ -22,6 +22,11 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
 
   const userLogin = useSelector((state: ReduxState) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const userUpdateProfile = useSelector(
+    (state: ReduxState) => state.userUpdateProfile
+  );
+  const { success } = userUpdateProfile;
 
   useEffect(() => {
     if (!userInfo) {
@@ -41,7 +46,15 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
     if (password !== confirmPassword) {
       setMessage('Passwords do not match');
     } else {
-      // DISPATCH UPDATE PROFILE
+      dispatch(
+        updateUserProfile({
+          _id: user!._id,
+          name,
+          email,
+          isAdmin: user!.isAdmin,
+          password,
+        })
+      );
     }
   };
 
@@ -51,6 +64,7 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
         <h2>USER PROFILE</h2>
         {message && <Message msg={message} variant='danger' />}
         {error && <Message msg={error} variant='danger' />}
+        {success && <Message msg={'Profile Updated'} variant='default' />}
         {loading && <Loader />}
 
         <form onSubmit={submitHandler} className={styles.form}>

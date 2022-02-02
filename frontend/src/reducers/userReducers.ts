@@ -137,11 +137,11 @@ export const userUpdateProfileReducer = (
         error: action.payload,
       };
 
-    case UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_RESET:
-      return {
-        loading: false,
-        error: action.payload,
-      };
+    // case UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_RESET:
+    //   return {
+    //     loading: false,
+    //     error: action.payload,
+    //   };
 
     default:
       return state;
