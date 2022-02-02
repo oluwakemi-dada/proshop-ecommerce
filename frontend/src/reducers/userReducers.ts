@@ -10,6 +10,7 @@ import {
   UserDetailsAction,
   UserUpdateProfileActionTypes,
   UserUpdateProfileState,
+  UserUpdateProfileAction,
 } from '../types/index';
 
 const loginInitialState: UserLoginState = {
@@ -99,6 +100,44 @@ export const userDetailsReducer = (
       };
 
     case UserDetailsActionTypes.USER_DETAILS_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    default:
+      return state;
+  }
+};
+
+const userUpdateProfileInitialState: UserUpdateProfileState = {
+  loading: false,
+};
+
+export const userUpdateProfileReducer = (
+  state = userUpdateProfileInitialState,
+  action: UserUpdateProfileAction
+) => {
+  switch (action.type) {
+    case UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        userInfo: action.payload,
+      };
+
+    case UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_RESET:
       return {
         loading: false,
         error: action.payload,

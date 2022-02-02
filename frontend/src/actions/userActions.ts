@@ -4,8 +4,10 @@ import {
   UserLoginActionTypes,
   UserRegisterActionTypes,
   UserDetailsActionTypes,
+  UserUpdateProfileActionTypes,
   UserWithToken,
-  User
+  UserWithPassword,
+  User,
 } from '../types/index';
 import { AppThunk } from '../store';
 
@@ -107,10 +109,7 @@ export const getUserDetails =
         },
       };
 
-      const { data } = await axios.get<User>(
-        `/api/users/${id}`,
-        config
-      );
+      const { data } = await axios.get<User>(`/api/users/${id}`, config);
 
       dispatch({
         type: UserDetailsActionTypes.USER_DETAILS_SUCCESS,
@@ -119,6 +118,43 @@ export const getUserDetails =
     } catch (error) {
       dispatch({
         type: UserDetailsActionTypes.USER_DETAILS_FAILURE,
+        payload: errorHandler(error),
+      });
+    }
+  };
+
+export const updateUserProfile =
+  (user: UserWithPassword): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        'Content-Type': 'application/json',
+        headers: {
+          Authorization: `Bearer ${userInfo!.token}`,
+        },
+      };
+
+      const { data } = await axios.put<UserWithToken>(
+        '/api/users/profile',
+        user,
+        config
+      );
+
+      dispatch({
+        type: UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_FAILURE,
         payload: errorHandler(error),
       });
     }

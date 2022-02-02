@@ -6,5 +6,5 @@ export * from './userRegister';
 export * from './userLogin';
 export * from './user';
 export * from './userDetails';
-export * from './userUpdateProfile'
+export * from './userUpdateProfile';
 export * from './appState';
