@@ -5,7 +5,7 @@
   margin-top: 2rem;
 }
 
-.container div {
+.container > div {
   width: 60rem;
 
   @media (max-width: 700px) {

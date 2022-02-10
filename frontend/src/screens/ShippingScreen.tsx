@@ -3,11 +3,14 @@ import { RouteComponentProps } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/ShippingScreen.module.scss';
 import FormContainer from '../components/FormContainer';
+import CheckoutSteps from '../components/CheckoutSteps';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
 import { saveShippingAddress } from '../actions/cartActions';
 
-const ShippingScreen: FC<RouteComponentProps> = ({ history }) => {
+interface ShippingScreenProps extends RouteComponentProps {}
+
+const ShippingScreen: FC<ShippingScreenProps> = ({ history }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const cart = useSelector((state: ReduxState) => state.cart);
@@ -33,6 +36,7 @@ const ShippingScreen: FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <FormContainer>
+      <CheckoutSteps step1 step2 />
       <h1>SHIPPING</h1>
       <form onSubmit={submitHandler} className={styles.form}>
         <div className={styles.formGroup}>
