@@ -1,0 +1,33 @@
+.form {
+  margin-top: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+
+  input {
+    background: #f7f7f9;
+    padding: 1.3rem 1.8rem;
+    border: 0;
+    margin-top: 0.7rem;
+
+    &:focus {
+      outline: 1px solid rgb(80, 79, 79);
+    }
+  }
+}
+
+.submitBtn {
+  padding: 1.5rem 0;
+  color: #fff;
+  background: #070707;
+  width: 10rem;
+  font-weight: 500;
+  border: 0;
+  outline: 0;
+  &:hover {
+    background: #222222;
+  }
+}

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { AppThunk } from '../store';
-import { CartActionTypes, Product } from '../types/index';
+import { CartActionTypes, Product, ShippingAddress } from '../types/index';
 
 export const addToCart =
   (id: string, qty: number): AppThunk =>
@@ -37,4 +37,15 @@ export const removeFromCart =
       'cartItems',
       JSON.stringify(getState().cart.cartItems)
     );
+  };
+
+export const saveShippingAddress =
+  (data: ShippingAddress): AppThunk =>
+  async (dispatch) => {
+    dispatch({
+      type: CartActionTypes.CART_SAVE_SHIPPING_ADDRESS,
+      payload: data,
+    });
+
+    localStorage.setItem('shippingAddress', JSON.stringify(data));
   };
