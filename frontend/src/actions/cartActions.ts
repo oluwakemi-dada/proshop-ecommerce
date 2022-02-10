@@ -49,3 +49,5 @@ export const saveShippingAddress =
 
     localStorage.setItem('shippingAddress', JSON.stringify(data));
   };
+
+export const savePaymentMethod = () => {};

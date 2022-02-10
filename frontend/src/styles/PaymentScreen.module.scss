@@ -1,0 +1,27 @@
+.form {
+  margin-top: 1rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.5rem;
+
+  input {
+    margin-right: 1rem;
+  }
+}
+
+.submitBtn {
+  padding: 1.5rem 0;
+  color: #fff;
+  background: #070707;
+  width: 10rem;
+  font-weight: 500;
+  border: 0;
+  outline: 0;
+  margin-top: 1rem;
+  &:hover {
+    background: #222222;
+  }
+}
