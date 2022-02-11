@@ -24,7 +24,7 @@ const PaymentScreen: FC<PaymentScreenProps> = ({ history }) => {
 
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // dispatch(savePaymentMethod(paymentMethod))
+    dispatch(savePaymentMethod(paymentMethod));
     history.push('/placeorder');
   };
 
