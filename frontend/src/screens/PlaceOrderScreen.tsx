@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect } from 'react';
 import { RouteComponentProps, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from '../styles/PlaceOrderScreen.module.scss';
@@ -6,15 +6,31 @@ import CheckoutSteps from '../components/CheckoutSteps';
 import Message from '../components/Message';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
-// import { savePaymentMethod } from '../actions/cartActions';
+import { createOrder } from '../actions/orderActions';
 
-const PlaceOrderScreen: FC = () => {
+interface PlaceOrderScreenProps extends RouteComponentProps {}
+
+const PlaceOrderScreen: FC<PlaceOrderScreenProps> = ({ history }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const cart = useSelector((state: ReduxState) => state.cart);
+  const { cartItems, shippingAddress, paymentMethod } = cart;
+
+  const orderCreate = useSelector((state: ReduxState) => state.orderCreate);
+  const { order, success, error } = orderCreate;
+
+  useEffect(() => {
+    if (success && order) {
+      history.push(`/order/${order._id}`);
+    }
+  }, [history, order, success]);
+
+  if (!paymentMethod) {
+		history.push('/payment');
+		return null;
+	}
 
   // CALCULATE PRICES
-
   const addDecimals = (num: number) => {
     return (Math.round(num * 100) / 100).toFixed(2);
   };
@@ -22,7 +38,9 @@ const PlaceOrderScreen: FC = () => {
   const itemsPrice = Number(
     cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0)
   );
-  const shippingPrice = addDecimals(itemsPrice > 100 ? 0 : (itemsPrice === 0) ? 0 : 100);
+  const shippingPrice = addDecimals(
+    itemsPrice > 100 ? 0 : itemsPrice === 0 ? 0 : 100
+  );
   const taxPrice = addDecimals(Number(0.15 * itemsPrice));
   const totalPrice = (
     Number(itemsPrice) +
@@ -30,8 +48,19 @@ const PlaceOrderScreen: FC = () => {
     Number(shippingPrice)
   ).toFixed(2);
 
+  // PLACE ORDER
   const placeOrderHandler = () => {
-    console.log('ORDER');
+    dispatch(
+      createOrder({
+        orderItems: cartItems,
+        shippingAddress: shippingAddress,
+        paymentMethod: paymentMethod,
+        itemsPrice: itemsPrice,
+        shippingPrice: parseFloat(shippingPrice),
+        taxPrice: parseFloat(taxPrice),
+        totalPrice: parseFloat(totalPrice),
+      })
+    );
   };
 
   return (
@@ -100,6 +129,9 @@ const PlaceOrderScreen: FC = () => {
             <div>Total:</div>
             <div>${totalPrice}</div>
           </div>
+
+          <div>{error && <Message msg={error} variant='danger' />}</div>
+
           <div className={styles.placeOrderBtnWrapper}>
             <button
               className={
