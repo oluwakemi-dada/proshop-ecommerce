@@ -1,4 +1,4 @@
-import { Cart, ShippingAddress } from '.';
+import { Cart, ShippingAddress } from './index';
 
 export interface Order {
 	orderItems: Cart[];

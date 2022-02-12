@@ -9,4 +9,5 @@ export * from './userDetails';
 export * from './userUpdateProfile';
 export * from './order';
 export * from './orderCreate';
+export * from './orderDetails';
 export * from './appState';

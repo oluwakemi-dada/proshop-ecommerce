@@ -7,6 +7,7 @@ import {
   UserDetailsState,
   UserUpdateProfileState,
   OrderCreateState,
+  OrderDetailsState,
 } from './index';
 
 export interface ReduxState {
@@ -18,4 +19,5 @@ export interface ReduxState {
   userDetails: UserDetailsState;
   userUpdateProfile: UserUpdateProfileState;
   orderCreate: OrderCreateState;
+  orderDetails: OrderDetailsState;
 }
