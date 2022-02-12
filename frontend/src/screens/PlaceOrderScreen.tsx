@@ -25,10 +25,14 @@ const PlaceOrderScreen: FC<PlaceOrderScreenProps> = ({ history }) => {
     }
   }, [history, order, success]);
 
+  if (!shippingAddress) {
+    history.push('/shipping');
+    return null;
+  }
   if (!paymentMethod) {
-		history.push('/payment');
-		return null;
-	}
+    history.push('/payment');
+    return null;
+  }
 
   // CALCULATE PRICES
   const addDecimals = (num: number) => {
