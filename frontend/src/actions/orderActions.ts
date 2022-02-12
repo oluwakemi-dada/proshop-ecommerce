@@ -3,6 +3,7 @@ import { errorHandler } from './errorHandler';
 import {
   OrderCreateActionTypes,
   OrderDetailsActionTypes,
+  OrderPayActionTypes,
   OrderCreate,
   Order,
   OrderDetails,
@@ -76,6 +77,51 @@ export const getOrderDetails =
     } catch (error) {
       dispatch({
         type: OrderDetailsActionTypes.ORDER_DETAILS_FAILURE,
+        payload: errorHandler(error),
+      });
+    }
+  };
+
+// Custom type
+export interface PaymentResult {
+  id: string;
+  status: string;
+  update_time: string;
+  payer: { email_address: string };
+}
+
+export const payOrder =
+  (orderId: string, paymentResult: PaymentResult): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: OrderPayActionTypes.ORDER_PAY_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo!.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/orders/${orderId}/pay`,
+        paymentResult,
+        config
+      );
+
+      dispatch({
+        type: OrderPayActionTypes.ORDER_PAY_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: OrderPayActionTypes.ORDER_PAY_FAILURE,
         payload: errorHandler(error),
       });
     }

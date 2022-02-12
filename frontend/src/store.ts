@@ -12,6 +12,7 @@ import {
   userUpdateProfileReducer,
   orderCreateReducer,
   orderDetailsReducer,
+  orderPayReducer,
 } from './reducers';
 
 export type AppDispatch = ThunkDispatch<ReduxState, unknown, Action<string>>;
@@ -33,6 +34,7 @@ const reducer = combineReducers({
   userUpdateProfile: userUpdateProfileReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
+  orderPay: orderPayReducer,
 });
 
 const items = localStorage.getItem('cartItems');

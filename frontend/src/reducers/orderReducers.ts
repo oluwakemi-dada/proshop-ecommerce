@@ -5,14 +5,17 @@ import {
   OrderDetailsActionTypes,
   OrderDetailsAction,
   OrderDetailsState,
+  OrderPayActionTypes,
+  OrderPayAction,
+  OrderPayState,
 } from '../types/index';
 
-const orderCreateReducerInitialState: OrderCreateState = {
+const orderCreateInitialState: OrderCreateState = {
   loading: false,
 };
 
 export const orderCreateReducer = (
-  state = orderCreateReducerInitialState,
+  state = orderCreateInitialState,
   action: OrderCreateAction
 ) => {
   switch (action.type) {
@@ -39,12 +42,12 @@ export const orderCreateReducer = (
   }
 };
 
-const orderDetailsReducerInitialState: OrderDetailsState = {
+const orderDetailsInitialState: OrderDetailsState = {
   loading: false,
 };
 
 export const orderDetailsReducer = (
-  state = orderDetailsReducerInitialState,
+  state = orderDetailsInitialState,
   action: OrderDetailsAction
 ) => {
   switch (action.type) {
@@ -64,6 +67,38 @@ export const orderDetailsReducer = (
         loading: false,
         error: action.payload,
       };
+
+    default:
+      return state;
+  }
+};
+
+const orderPayInitialState = {};
+
+export const orderPayReducer = (
+  state = orderPayInitialState,
+  action: OrderPayAction
+) => {
+  switch (action.type) {
+    case OrderPayActionTypes.ORDER_PAY_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case OrderPayActionTypes.ORDER_PAY_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+
+    case OrderPayActionTypes.ORDER_PAY_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case OrderPayActionTypes.ORDER_PAY_RESET:
+      return {};
 
     default:
       return state;
