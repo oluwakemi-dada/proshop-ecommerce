@@ -1,0 +1,175 @@
+.wrapper {
+  margin-top: 2rem;
+
+  h1 {
+    span {
+      word-wrap: break-word;
+    }
+  }
+
+  h2 {
+    font-weight: 500;
+    font-size: 2.7rem;
+
+    @media (max-width: 700px) {
+      font-size: 2.5rem;
+    }
+
+    @media (max-width: 450px) {
+      font-size: 2.3rem;
+    }
+  }
+}
+
+.summaryContainer {
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  grid-gap: 5rem;
+  margin-top: 2rem;
+
+  @media (max-width: 1200px) {
+    grid-template-columns: 1fr;
+  }
+
+  @media (max-width: 700px) {
+    grid-gap: 3rem;
+  }
+}
+
+.shippingPaymentOrderSummary > div {
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 1.5rem;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  @media (max-width: 700px) {
+    padding-bottom: 2.5rem;
+  }
+}
+
+.shipping,
+.paymentMethod {
+  h2 {
+    padding: 1.5rem 0;
+  }
+
+  > div {
+    display: flex;
+    margin-bottom: 1rem;
+
+    > div:first-child {
+      margin-right: 0.6rem;
+      font-weight: 500;
+    }
+  }
+}
+
+.paymentStatus > *,
+.deliveryStatus > * {
+  width: 100%;
+}
+
+.mailTo {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.orderItems {
+  h2 {
+    padding: 1.5rem 0 1rem 0;
+  }
+}
+
+.itemsWrapper > div {
+  border-bottom: 1px solid #e0e0e0;
+
+  @media (max-width: 700px) {
+    padding: 1.5rem 0 1.1rem 0;
+  }
+
+  &:first-child {
+    @media (max-width: 700px) {
+      padding-top: 0;
+    }
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+}
+
+.orderItem {
+  display: grid;
+  grid-template-columns: 0.05fr 0.6fr 0.35fr;
+  grid-gap: 2rem;
+  padding: 1.2rem 0;
+
+  @media (max-width: 700px) {
+    grid-gap: 0.8rem;
+    grid-template-columns: 1fr;
+  }
+}
+
+.orderLink {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.orderImage {
+  width: 4rem;
+  border-radius: 0.2rem;
+
+  @media (max-width: 700px) {
+    width: 20%;
+  }
+}
+
+.orderSummary {
+  border: 1px solid #e0e0e0;
+  height: fit-content;
+
+  h2 {
+    padding: 1.5rem 2rem 1.5rem 2rem;
+    border-bottom: 1px solid #e0e0e0;
+  }
+}
+
+.priceSummary {
+  padding: 1.2rem 2rem;
+  display: grid;
+  grid-template-columns: 0.6fr 0.4fr;
+  border-bottom: 1px solid #e0e0e0;
+
+  > div:first-child {
+    font-weight: 500;
+  }
+}
+
+.placeOrderBtnWrapper {
+  padding: 1.5rem 2rem;
+}
+
+@mixin placeOrderBtn {
+  padding: 1.4rem 0;
+  color: #fff;
+  width: 100%;
+  font-weight: 500;
+}
+
+.placeOrderBtnEnabled {
+  @include placeOrderBtn;
+  background: #070707;
+  &:hover {
+    background: #222222;
+  }
+}
+
+.placeOrderBtnDisabled {
+  @include placeOrderBtn;
+  background: #696969;
+  cursor: default;
+}
