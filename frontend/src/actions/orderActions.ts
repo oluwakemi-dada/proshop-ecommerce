@@ -4,9 +4,11 @@ import {
   OrderCreateActionTypes,
   OrderDetailsActionTypes,
   OrderPayActionTypes,
+  OrderListMyActionTypes,
   OrderCreate,
   Order,
   OrderDetails,
+  OrderListMy,
 } from '../types/index';
 import { AppThunk } from '../store';
 
@@ -126,3 +128,36 @@ export const payOrder =
       });
     }
   };
+
+export const listMyOrders = (): AppThunk => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: OrderListMyActionTypes.ORDER_LIST_MY_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo!.token}`,
+      },
+    };
+
+    const { data } = await axios.get<OrderListMy[]>(
+      `/api/orders/myorders`,
+      config
+    );
+
+    dispatch({
+      type: OrderListMyActionTypes.ORDER_LIST_MY_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: OrderListMyActionTypes.ORDER_LIST_MY_FAILURE,
+      payload: errorHandler(error),
+    });
+  }
+};

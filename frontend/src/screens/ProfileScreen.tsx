@@ -7,6 +7,7 @@ import Loader from '../components/Loader';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
 import { getUserDetails, updateUserProfile } from '../actions/userActions';
+import { listMyOrders } from '../actions/orderActions';
 import { UserUpdateProfileActionTypes } from '../types/index';
 
 const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
@@ -18,11 +19,15 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
 
   const dispatch = useDispatch<AppDispatch>();
 
+  // SELECTORS
   const userDetails = useSelector((state: ReduxState) => state.userDetails);
   const { loading, error, user } = userDetails;
 
   const userLogin = useSelector((state: ReduxState) => state.userLogin);
   const { userInfo } = userLogin;
+
+  const orderListMy = useSelector((state: ReduxState) => state.orderListMy);
+  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy;
 
   const userUpdateProfile = useSelector(
     (state: ReduxState) => state.userUpdateProfile
@@ -34,11 +39,11 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
       history.push('/login');
     } else {
       if (!user || !user.name || success) {
+        dispatch(getUserDetails('profile'));
+        dispatch(listMyOrders());
         dispatch({
           type: UserUpdateProfileActionTypes.USER_UPDATE_PROFILE_RESET,
         });
-
-        dispatch(getUserDetails('profile'));
       } else {
         setName(user.name);
         setEmail(user.email);
@@ -117,6 +122,32 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
 
       <div>
         <h2>MY ORDERS</h2>
+        {loadingOrders ? (
+          <Loader />
+        ) : errorOrders ? (
+          <Message msg={errorOrders} variant='danger' />
+        ) : (
+          <div>
+            <div className={styles.tableHead}>
+              <div>ID</div>
+              <div>DATE</div>
+              <div>TOTAL</div>
+              <div>PAID</div>
+              <div>DELIVERED</div>
+            </div>
+            <div className={styles.orderLists}>
+              {[1, 2, 3, 4, 5].map((item, index) => (
+                <div key={index}>
+                  <div>Item1</div>
+                  <div>Item2</div>
+                  <div>Item3</div>
+                  <div>Item4</div>
+                  <div>Item5</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

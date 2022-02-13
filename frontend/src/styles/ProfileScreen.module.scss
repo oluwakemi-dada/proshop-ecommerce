@@ -37,3 +37,9 @@
   grid-template-columns: 0.25fr 0.75fr;
   grid-gap: 3rem;
 }
+
+.tableHead, .orderLists {
+  display: grid;
+  grid-template-columns: 1fr 2.75fr 2.5fr 1fr 2.75fr;
+  grid-gap: 2rem;
+}
