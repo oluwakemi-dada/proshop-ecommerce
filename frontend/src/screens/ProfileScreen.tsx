@@ -1,6 +1,7 @@
 import { FC, useState, useEffect, FormEvent } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaTimes } from 'react-icons/fa';
 import styles from '../styles/ProfileScreen.module.scss';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
@@ -120,8 +121,8 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
         </form>
       </div>
 
-      <div>
-        <h2>MY ORDERS</h2>
+      <div className={styles.ordersWrapper}>
+        <h2 className={styles.ordersHeading}>MY ORDERS</h2>
         {loadingOrders ? (
           <Loader />
         ) : errorOrders ? (
@@ -135,14 +136,18 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
               <div>PAID</div>
               <div>DELIVERED</div>
             </div>
-            <div className={styles.orderLists}>
+            <div>
               {[1, 2, 3, 4, 5].map((item, index) => (
-                <div key={index}>
-                  <div>Item1</div>
-                  <div>Item2</div>
-                  <div>Item3</div>
-                  <div>Item4</div>
-                  <div>Item5</div>
+                <div key={index} className={styles.orderItem}>
+                  <div>1584</div>
+                  <div>2022-02-01</div>
+                  <div>$1438.28</div>
+                  <div>
+                    <FaTimes className={styles.timesIcon} />
+                  </div>
+                  <Link to='!#'>
+                    <div className={styles.detailsBtn}>DETAILS</div>
+                  </Link>
                 </div>
               ))}
             </div>
