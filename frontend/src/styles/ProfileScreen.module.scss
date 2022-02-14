@@ -58,23 +58,17 @@
 }
 
 .ordersHeading {
-  @media (max-width: 1000px) {
-    position: sticky;
-    top: 0;
-    left: 0;
-  }
+  position: sticky;
+  top: 0;
+  left: 0;
 }
 
 .tableHead,
 .orderItem {
   display: grid;
-  grid-template-columns: 1.2fr 2.75fr 2.75fr 1.2fr 2.1fr;
+  grid-template-columns: 3fr 1.5fr 1.5fr 1.5fr 1.5fr 1fr;
   grid-gap: 2rem;
-  min-width: 55rem;
-
-  @media (max-width: 1000px) {
-    grid-template-columns: 1fr 2.95fr 2.95fr 1fr 2.1fr;
-  }
+  min-width: 100rem;
 }
 
 .tableHead {
@@ -91,10 +85,10 @@
 .orderItem {
   padding: 1.4rem 0.8rem;
 
-  &:nth-child(odd) {
+  &:nth-child(even) {
     background: #fff;
   }
-  &:nth-child(even) {
+  &:nth-child(odd) {
     background: #f2f2f2;
   }
 }

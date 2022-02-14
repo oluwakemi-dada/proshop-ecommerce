@@ -135,17 +135,29 @@ const ProfileScreen: FC<RouteComponentProps> = ({ history }) => {
               <div>TOTAL</div>
               <div>PAID</div>
               <div>DELIVERED</div>
+              <div></div>
             </div>
             <div>
-              {[1, 2, 3, 4, 5].map((item, index) => (
-                <div key={index} className={styles.orderItem}>
-                  <div>1584</div>
-                  <div>2022-02-01</div>
-                  <div>$1438.28</div>
+              {orders.map((order) => (
+                <div key={order._id} className={styles.orderItem}>
+                  <div>{order._id}</div>
+                  <div>{order.createdAt.substring(0, 10)}</div>
+                  <div>${order.totalPrice}</div>
                   <div>
-                    <FaTimes className={styles.timesIcon} />
+                    {order.isPaid ? (
+                      order.paidAt!.substring(0, 10)
+                    ) : (
+                      <FaTimes className={styles.timesIcon} />
+                    )}
                   </div>
-                  <Link to='!#'>
+                  <div>
+                    {order.isDelivered ? (
+                      order.deliveredAt!.substring(0, 10)
+                    ) : (
+                      <FaTimes className={styles.timesIcon} />
+                    )}
+                  </div>
+                  <Link to={`/order/${order._id}`}>
                     <div className={styles.detailsBtn}>DETAILS</div>
                   </Link>
                 </div>
