@@ -5,6 +5,7 @@ import {
   UserRegisterActionTypes,
   UserDetailsActionTypes,
   UserUpdateProfileActionTypes,
+  OrderListMyActionTypes,
   UserWithToken,
   UserWithPassword,
   User,
@@ -49,6 +50,12 @@ export const logout = (): AppThunk => async (dispatch) => {
   localStorage.removeItem('userInfo');
   dispatch({
     type: UserLoginActionTypes.USER_LOGOUT,
+  });
+  dispatch({
+    type: UserDetailsActionTypes.USER_DETAILS_RESET,
+  });
+  dispatch({
+    type: OrderListMyActionTypes.ORDER_LIST_MY_RESET,
   });
 };
 

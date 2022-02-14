@@ -105,6 +105,11 @@ export const userDetailsReducer = (
         error: action.payload,
       };
 
+    case UserDetailsActionTypes.USER_DETAILS_RESET:
+      return {
+        user: {},
+      };
+
     default:
       return state;
   }
