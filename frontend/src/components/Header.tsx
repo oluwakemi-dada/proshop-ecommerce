@@ -102,6 +102,25 @@ const Header: FC = () => {
                   </div>
                 </Link>
               )}
+
+              {userInfo && userInfo.isAdmin && (
+                <Link to='/admin/userlist'>
+                  <div className={styles.users}>USERS</div>
+                </Link>
+              )}
+
+              {userInfo && userInfo.isAdmin && (
+                <Link to='/admin/productlist'>
+                  <div className={styles.products}>PRODUCTS</div>
+                </Link>
+              )}
+
+              {userInfo && userInfo.isAdmin && (
+                <Link to='/admin/orderlist'>
+                  <div className={styles.orders}>ORDERS</div>
+                </Link>
+              )}
+
               <Link to=''>
                 <div onClick={logoutHandler} className={styles.logout}>
                   LOGOUT

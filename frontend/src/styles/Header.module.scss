@@ -98,7 +98,10 @@
 .cart,
 .signIn,
 .user,
-.logout {
+.logout,
+.users,
+.products,
+.orders {
   @include flexRow;
   cursor: pointer;
   transition: 0.15s;

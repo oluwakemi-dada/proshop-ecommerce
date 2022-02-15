@@ -1,0 +1,88 @@
+.usersWrapper {
+  position: relative;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.usersHeading {
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.usersTable {
+  margin-top: 2rem;
+}
+
+.tableHead,
+.user {
+  display: grid;
+  grid-template-columns: 2.5fr 2.15fr 3.15fr 1fr 1.2fr;
+  grid-gap: 2rem;
+  min-width: 100rem;
+}
+
+.tableHead {
+  font-weight: 500;
+}
+
+.tableHead {
+  padding: 0.9rem 0.8rem;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1.4rem;
+}
+
+.user {
+  padding: 1.4rem 0.8rem;
+
+  &:nth-child(even) {
+    background: #fff;
+  }
+  &:nth-child(odd) {
+    background: #f2f2f2;
+  }
+}
+
+.mailTo {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.timesIcon {
+  color: #ff0000;
+}
+
+.checkIcon {
+  color: #048804;
+}
+
+.deleteEditIcons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.editIcon,
+.deleteIcon {
+  width: 4rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editIcon {
+  background: #fff;
+}
+
+.deleteIcon {
+  background: #ff0000;
+  color: #fff;
+}

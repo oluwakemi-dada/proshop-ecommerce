@@ -12,5 +12,6 @@ export * from './orderCreate';
 export * from './orderDetails';
 export * from './orderPay';
 export * from './orderListMy';
+export * from './userList'
 
 export * from './appState';
