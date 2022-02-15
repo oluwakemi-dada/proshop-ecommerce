@@ -34,11 +34,12 @@ const NavMenu = styled.div`
   width: 100%;
   margin-left: 10rem;
 
-  @media (max-width: 1000px) {
+  @media (max-width: 1200px) {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 17rem;
+    /* height: 17rem; */
+    height: 27rem;
     position: absolute;
     top: 9.3rem;
     background: #343a40;
