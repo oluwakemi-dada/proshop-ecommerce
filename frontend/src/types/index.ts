@@ -7,11 +7,12 @@ export * from './userLogin';
 export * from './user';
 export * from './userDetails';
 export * from './userUpdateProfile';
+export * from './userList';
+export * from './userDelete';
 export * from './order';
 export * from './orderCreate';
 export * from './orderDetails';
 export * from './orderPay';
 export * from './orderListMy';
-export * from './userList'
 
 export * from './appState';

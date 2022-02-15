@@ -4,11 +4,11 @@ import { Link, RouteComponentProps } from 'react-router-dom';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 import styles from '../styles/UserListScreen.module.scss';
-import { listUsers } from '../actions/userActions';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
 import { FaTimes, FaCheck, FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
+import { listUsers, deleteUser } from '../actions/userActions';
 
 const UserListScreen: FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,16 +19,21 @@ const UserListScreen: FC<RouteComponentProps> = ({ history }) => {
   const userLogin = useSelector((state: ReduxState) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const userDelete = useSelector((state: ReduxState) => state.userDelete);
+  const { success: successDelete } = userDelete;
+
   useEffect(() => {
     if (userInfo && userInfo.isAdmin) {
       dispatch(listUsers());
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (id: string) => {
-    console.log(id);
+    if (window.confirm('Are you sure?')) {
+      dispatch(deleteUser(id));
+    }
   };
 
   return (

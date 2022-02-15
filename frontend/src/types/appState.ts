@@ -5,12 +5,13 @@ import {
   UserLoginState,
   UserRegisterState,
   UserDetailsState,
+  UserListState,
+  UserDeleteState,
   UserUpdateProfileState,
   OrderCreateState,
   OrderDetailsState,
   OrderPayState,
   OrderListMyState,
-  UserListState,
 } from './index';
 
 export interface ReduxState {
@@ -22,6 +23,7 @@ export interface ReduxState {
   userDetails: UserDetailsState;
   userUpdateProfile: UserUpdateProfileState;
   userList: UserListState;
+  userDelete: UserDeleteState;
   orderCreate: OrderCreateState;
   orderDetails: OrderDetailsState;
   orderPay: OrderPayState;

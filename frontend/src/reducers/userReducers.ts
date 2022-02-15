@@ -14,6 +14,9 @@ import {
   UserListActionTypes,
   UserListAction,
   UserListState,
+  UserDeleteActionTypes,
+  UserDeleteAction,
+  UserDeleteState,
 } from '../types/index';
 
 const loginInitialState: UserLoginState = {
@@ -182,6 +185,36 @@ export const UserListReducer = (
 
     case UserListActionTypes.USER_LIST_RESET:
       return { users: [] };
+
+    default:
+      return state;
+  }
+};
+
+// USER DELETE REDUCER
+const UserDeleteInitialState: UserDeleteState = {};
+
+export const UserDeleteReducer = (
+  state = UserDeleteInitialState,
+  action: UserDeleteAction
+) => {
+  switch (action.type) {
+    case UserDeleteActionTypes.USER_DELETE_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case UserDeleteActionTypes.USER_DELETE_SUCCESS:
+      return {
+        loading: false,
+        success: true
+      };
+
+    case UserDeleteActionTypes.USER_DELETE_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
 
     default:
       return state;
