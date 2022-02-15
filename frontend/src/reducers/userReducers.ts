@@ -181,7 +181,7 @@ export const UserListReducer = (
       };
 
     case UserListActionTypes.USER_LIST_RESET:
-      return {};
+      return { users: [] };
 
     default:
       return state;

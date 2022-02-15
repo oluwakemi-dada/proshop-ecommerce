@@ -1,8 +1,8 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, RouteComponentProps } from 'react-router-dom';
 import Message from '../components/Message';
-import Loader from 'react-spinners/PulseLoader';
+import Loader from '../components/Loader';
 import styles from '../styles/UserListScreen.module.scss';
 import { listUsers } from '../actions/userActions';
 import { AppDispatch } from '../store';
@@ -10,15 +10,22 @@ import { ReduxState } from '../types';
 import { FaTimes, FaCheck, FaEdit } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
 
-const UserListScreen: FC = () => {
+const UserListScreen: FC<RouteComponentProps> = ({ history }) => {
   const dispatch = useDispatch<AppDispatch>();
 
   const userList = useSelector((state: ReduxState) => state.userList);
   const { loading, error, users } = userList;
 
+  const userLogin = useSelector((state: ReduxState) => state.userLogin);
+  const { userInfo } = userLogin;
+
   useEffect(() => {
-    dispatch(listUsers());
-  }, [dispatch]);
+    if (userInfo && userInfo.isAdmin) {
+      dispatch(listUsers());
+    } else {
+      history.push('/login');
+    }
+  }, [dispatch, history, userInfo]);
 
   const deleteHandler = (id: string) => {
     console.log(id);
@@ -64,7 +71,10 @@ const UserListScreen: FC = () => {
                     </div>
                   </Link>
 
-                  <div onClick={() => deleteHandler(user._id)} className={styles.deleteIcon}>
+                  <div
+                    onClick={() => deleteHandler(user._id)}
+                    className={styles.deleteIcon}
+                  >
                     <AiFillDelete />
                   </div>
                 </div>

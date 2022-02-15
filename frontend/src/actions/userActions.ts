@@ -58,6 +58,9 @@ export const logout = (): AppThunk => async (dispatch) => {
   dispatch({
     type: OrderListMyActionTypes.ORDER_LIST_MY_RESET,
   });
+  dispatch({
+    type: UserListActionTypes.USER_LIST_RESET,
+  });
 };
 
 export const register =

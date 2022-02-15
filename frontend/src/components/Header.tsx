@@ -38,7 +38,6 @@ const NavMenu = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    /* height: 17rem; */
     height: 27rem;
     position: absolute;
     top: 9.3rem;
@@ -122,11 +121,13 @@ const Header: FC = () => {
                 </Link>
               )}
 
-              <Link to=''>
-                <div onClick={logoutHandler} className={styles.logout}>
-                  LOGOUT
-                </div>
-              </Link>
+              {userInfo && (
+                <Link to=''>
+                  <div onClick={logoutHandler} className={styles.logout}>
+                    LOGOUT
+                  </div>
+                </Link>
+              )}
             </div>
           </NavMenu>
         </nav>
