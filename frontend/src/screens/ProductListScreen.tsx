@@ -6,9 +6,9 @@ import Loader from '../components/Loader';
 import styles from '../styles/ProductListScreen.module.scss';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
-import { FaTimes, FaCheck, FaEdit, FaPlus } from 'react-icons/fa';
+import { FaEdit, FaPlus } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
-import { listProducts } from '../actions/productActions';
+import { listProducts, deleteProduct } from '../actions/productActions';
 
 interface MatchParams {
   id: string;
@@ -25,6 +25,13 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
   const productList = useSelector((state: ReduxState) => state.productList);
   const { loading, error, products } = productList;
 
+  const productDelete = useSelector((state: ReduxState) => state.productDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete;
+
   const userLogin = useSelector((state: ReduxState) => state.userLogin);
   const { userInfo } = userLogin;
 
@@ -34,11 +41,11 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
     } else {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo]);
+  }, [dispatch, history, userInfo, successDelete]);
 
   const deleteHandler = (id: string) => {
     if (window.confirm('Are you sure?')) {
-      // DELETE PRODUCTS
+      dispatch(deleteProduct(id));
     }
   };
 
@@ -56,6 +63,8 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
         </div>
       </div>
 
+      {loadingDelete && <Loader />}
+      {errorDelete && <Message msg={errorDelete} variant='danger' />}
       {loading ? (
         <Loader />
       ) : error ? (

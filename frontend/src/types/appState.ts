@@ -1,6 +1,7 @@
 import {
   ProductListState,
   ProductDetailsState,
+  ProductDeleteState,
   CartState,
   UserLoginState,
   UserRegisterState,
@@ -18,6 +19,7 @@ import {
 export interface ReduxState {
   productList: ProductListState;
   productDetails: ProductDetailsState;
+  productDelete: ProductDeleteState;
   cart: CartState;
   userLogin: UserLoginState;
   userRegister: UserRegisterState;

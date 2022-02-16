@@ -5,6 +5,7 @@ import { ReduxState } from './types/index';
 import {
   productListReducer,
   productDetailsReducer,
+  productDeleteReducer,
   cartReducer,
   userLoginReducer,
   userRegisterReducer,
@@ -31,6 +32,7 @@ export type AppThunk = ThunkAction<
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
+  productDelete: productDeleteReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,

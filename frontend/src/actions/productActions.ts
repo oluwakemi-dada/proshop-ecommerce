@@ -3,6 +3,7 @@ import { errorHandler } from './errorHandler';
 import {
   ProductListActionTypes,
   ProductDetailsActionTypes,
+  ProductDeleteActionTypes,
   Product,
 } from '../types/index';
 import { AppThunk } from '../store';
@@ -42,6 +43,37 @@ export const listProductDetails =
     } catch (error: any) {
       dispatch({
         type: ProductDetailsActionTypes.PRODUCT_DETAILS_FAILURE,
+        payload: errorHandler(error),
+      });
+    }
+  };
+
+export const deleteProduct =
+  (id: string): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: ProductDeleteActionTypes.PRODUCT_DELETE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo!.token}`,
+        },
+      };
+
+      await axios.delete(`/api/products/${id}`, config);
+
+      dispatch({
+        type: ProductDeleteActionTypes.PRODUCT_DELETE_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ProductDeleteActionTypes.PRODUCT_DELETE_FAILURE,
         payload: errorHandler(error),
       });
     }

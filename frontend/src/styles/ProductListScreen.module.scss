@@ -35,7 +35,11 @@
     background: #222222;
   }
 
-  @media (max-width: 500px) {
+  div {
+    margin-left: 0.5rem;
+  }
+
+  @media (max-width: 700px) {
     div {
       display: none;
     }
