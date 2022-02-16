@@ -17,6 +17,9 @@ import {
   UserDeleteActionTypes,
   UserDeleteAction,
   UserDeleteState,
+  UserUpdateActionTypes,
+  UserUpdateAction,
+  UserUpdateState,
 } from '../types/index';
 
 const loginInitialState: UserLoginState = {
@@ -156,13 +159,13 @@ export const userUpdateProfileReducer = (
   }
 };
 
-const UserListInitialState: UserListState = {
+const userListInitialState: UserListState = {
   loading: false,
   users: [],
 };
 
-export const UserListReducer = (
-  state = UserListInitialState,
+export const userListReducer = (
+  state = userListInitialState,
   action: UserListAction
 ) => {
   switch (action.type) {
@@ -192,10 +195,12 @@ export const UserListReducer = (
 };
 
 // USER DELETE REDUCER
-const UserDeleteInitialState: UserDeleteState = {};
+const userDeleteInitialState: UserDeleteState = {
+  loading: false,
+};
 
-export const UserDeleteReducer = (
-  state = UserDeleteInitialState,
+export const userDeleteReducer = (
+  state = userDeleteInitialState,
   action: UserDeleteAction
 ) => {
   switch (action.type) {
@@ -207,7 +212,7 @@ export const UserDeleteReducer = (
     case UserDeleteActionTypes.USER_DELETE_SUCCESS:
       return {
         loading: false,
-        success: true
+        success: true,
       };
 
     case UserDeleteActionTypes.USER_DELETE_FAILURE:
@@ -215,6 +220,41 @@ export const UserDeleteReducer = (
         loading: false,
         error: action.payload,
       };
+
+    default:
+      return state;
+  }
+};
+
+// USER UPDATE REDUCER
+const userUpdateInitialState: UserUpdateState = {
+  loading: false,
+};
+
+export const userUpdateReducer = (
+  state = userUpdateInitialState,
+  action: UserUpdateAction
+) => {
+  switch (action.type) {
+    case UserUpdateActionTypes.USER_UPDATE_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case UserUpdateActionTypes.USER_UPDATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+
+    case UserUpdateActionTypes.USER_UPDATE_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case UserUpdateActionTypes.USER_UPDATE_RESET:
+      return {};
 
     default:
       return state;

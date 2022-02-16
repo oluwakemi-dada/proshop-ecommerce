@@ -9,6 +9,7 @@ export * from './userDetails';
 export * from './userUpdateProfile';
 export * from './userList';
 export * from './userDelete';
+export * from './userUpdate';
 export * from './order';
 export * from './orderCreate';
 export * from './orderDetails';

@@ -8,6 +8,7 @@ import {
   OrderListMyActionTypes,
   UserListActionTypes,
   UserDeleteActionTypes,
+  UserUpdateActionTypes,
   UserWithToken,
   UserWithPassword,
   User,
@@ -235,6 +236,42 @@ export const deleteUser =
     } catch (error) {
       dispatch({
         type: UserDeleteActionTypes.USER_DELETE_FAILURE,
+        payload: errorHandler(error),
+      });
+    }
+  };
+
+export const updateUser =
+  (user: User): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: UserUpdateActionTypes.USER_UPDATE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo!.token}`,
+        },
+      };
+
+      const { data } = await axios.put(`/api/users/${user._id}`, user, config);
+
+      dispatch({
+        type: UserUpdateActionTypes.USER_UPDATE_SUCCESS,
+      });
+      dispatch({
+        type: UserDetailsActionTypes.USER_DETAILS_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: UserUpdateActionTypes.USER_UPDATE_FAILURE,
         payload: errorHandler(error),
       });
     }

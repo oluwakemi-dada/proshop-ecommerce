@@ -8,6 +8,7 @@ import {
   UserListState,
   UserDeleteState,
   UserUpdateProfileState,
+  UserUpdateState,
   OrderCreateState,
   OrderDetailsState,
   OrderPayState,
@@ -24,6 +25,7 @@ export interface ReduxState {
   userUpdateProfile: UserUpdateProfileState;
   userList: UserListState;
   userDelete: UserDeleteState;
+  userUpdate: UserUpdateState;
   orderCreate: OrderCreateState;
   orderDetails: OrderDetailsState;
   orderPay: OrderPayState;
