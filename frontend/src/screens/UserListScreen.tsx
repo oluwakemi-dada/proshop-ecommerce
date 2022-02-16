@@ -70,7 +70,7 @@ const UserListScreen: FC<RouteComponentProps> = ({ history }) => {
                   )}
                 </div>
                 <div className={styles.deleteEditIcons}>
-                  <Link to={`/user/${user._id}/edit`}>
+                  <Link to={`/admin/user/${user._id}/edit`}>
                     <div className={styles.editIcon}>
                       <FaEdit />
                     </div>
