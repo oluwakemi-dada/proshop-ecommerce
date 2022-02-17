@@ -1,4 +1,5 @@
 export * from './product';
+export * from './productCreate';
 export * from './productList';
 export * from './productDetails';
 export * from './productDelete';

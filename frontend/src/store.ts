@@ -3,6 +3,7 @@ import { createStore, combineReducers, applyMiddleware, Action } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { ReduxState } from './types/index';
 import {
+  productCreateReducer,
   productListReducer,
   productDetailsReducer,
   productDeleteReducer,
@@ -30,17 +31,18 @@ export type AppThunk = ThunkAction<
 >;
 
 const reducer = combineReducers({
+  productCreate: productCreateReducer,
   productList: productListReducer,
   productDetails: productDetailsReducer,
   productDelete: productDeleteReducer,
   cart: cartReducer,
-  userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
+  userLogin: userLoginReducer,
   userDetails: userDetailsReducer,
   userList: userListReducer,
+  userUpdate: userUpdateReducer,
   userDelete: userDeleteReducer,
   userUpdateProfile: userUpdateProfileReducer,
-  userUpdate: userUpdateReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,

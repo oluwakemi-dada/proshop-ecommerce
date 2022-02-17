@@ -8,7 +8,12 @@ import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
 import { FaEdit, FaPlus } from 'react-icons/fa';
 import { AiFillDelete } from 'react-icons/ai';
-import { listProducts, deleteProduct } from '../actions/productActions';
+import {
+  listProducts,
+  deleteProduct,
+  createProduct,
+} from '../actions/productActions';
+import { ProductCreateActionTypes } from '../types';
 
 interface MatchParams {
   id: string;
@@ -22,6 +27,7 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
+  // SELECTORS
   const productList = useSelector((state: ReduxState) => state.productList);
   const { loading, error, products } = productList;
 
@@ -32,25 +38,50 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
     success: successDelete,
   } = productDelete;
 
+  const productCreate = useSelector((state: ReduxState) => state.productCreate);
+  const {
+    loading: loadingCreate,
+    error: errorCreate,
+    success: successCreate,
+    product: createdProduct,
+  } = productCreate;
+
   const userLogin = useSelector((state: ReduxState) => state.userLogin);
   const { userInfo } = userLogin;
 
   useEffect(() => {
-    if (userInfo && userInfo.isAdmin) {
-      dispatch(listProducts());
-    } else {
+    dispatch({
+      type: ProductCreateActionTypes.PRODUCT_CREATE_RESET,
+    });
+
+    if (userInfo && !userInfo.isAdmin) {
       history.push('/login');
     }
-  }, [dispatch, history, userInfo, successDelete]);
 
-  const deleteHandler = (id: string) => {
+    if (successCreate) {
+      history.push(`/admin/products/${createdProduct!._id}/edit`);
+    } else {
+      dispatch(listProducts());
+    }
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successDelete,
+    successCreate,
+    createdProduct,
+  ]);
+
+  // DELETE PRODUCT
+  const deleteProductHandler = (id: string) => {
     if (window.confirm('Are you sure?')) {
       dispatch(deleteProduct(id));
     }
   };
 
-  const createProductHandler = (product: any) => {
-    // create
+  // CREATE PRODUCT
+  const createProductHandler = () => {
+    dispatch(createProduct());
   };
 
   return (
@@ -65,6 +96,8 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
 
       {loadingDelete && <Loader />}
       {errorDelete && <Message msg={errorDelete} variant='danger' />}
+      {loadingCreate && <Loader />}
+      {errorCreate && <Message msg={errorCreate} variant='danger' />}
       {loading ? (
         <Loader />
       ) : error ? (
@@ -95,7 +128,7 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
                   </Link>
 
                   <div
-                    onClick={() => deleteHandler(product._id)}
+                    onClick={() => deleteProductHandler(product._id)}
                     className={styles.deleteIcon}
                   >
                     <AiFillDelete />

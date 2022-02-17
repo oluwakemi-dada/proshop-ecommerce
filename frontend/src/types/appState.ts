@@ -1,5 +1,6 @@
 import {
   ProductListState,
+  ProductCreateState,
   ProductDetailsState,
   ProductDeleteState,
   CartState,
@@ -17,6 +18,7 @@ import {
 } from './index';
 
 export interface ReduxState {
+  productCreate: ProductCreateState;
   productList: ProductListState;
   productDetails: ProductDetailsState;
   productDelete: ProductDeleteState;

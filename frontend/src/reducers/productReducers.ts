@@ -8,6 +8,9 @@ import {
   ProductDeleteActionTypes,
   ProductDeleteAction,
   ProductDeleteState,
+  ProductCreateActionTypes,
+  ProductCreateAction,
+  ProductCreateState,
 } from '../types/index';
 
 const productListInitialState: ProductListState = {
@@ -54,20 +57,17 @@ export const productDetailsReducer = (
   switch (action.type) {
     case ProductDetailsActionTypes.PRODUCT_DETAILS_REQUEST:
       return {
-        ...state,
         loading: true,
       };
 
     case ProductDetailsActionTypes.PRODUCT_DETAILS_SUCCESS:
       return {
-        ...state,
         loading: false,
         product: action.payload,
       };
 
     case ProductDetailsActionTypes.PRODUCT_DETAILS_FAILURE:
       return {
-        ...state,
         loading: false,
         error: action.payload,
       };
@@ -77,7 +77,8 @@ export const productDetailsReducer = (
   }
 };
 
-const productDeleteInitialState: ProductDetailsState = {
+// PRODUCT DELETE REDUCER
+const productDeleteInitialState: ProductDeleteState = {
   loading: false,
 };
 
@@ -88,23 +89,56 @@ export const productDeleteReducer = (
   switch (action.type) {
     case ProductDeleteActionTypes.PRODUCT_DELETE_REQUEST:
       return {
-        ...state,
         loading: true,
       };
 
     case ProductDeleteActionTypes.PRODUCT_DELETE_SUCCESS:
       return {
-        ...state,
         loading: false,
         success: true,
       };
 
     case ProductDeleteActionTypes.PRODUCT_DELETE_FAILURE:
       return {
-        ...state,
         loading: false,
         error: action.payload,
       };
+
+    default:
+      return state;
+  }
+};
+
+// PRODUCT CREATE REDUCER
+const productCreateInitialState: ProductCreateState = {
+  loading: false,
+};
+
+export const productCreateReducer = (
+  state = productCreateInitialState,
+  action: ProductCreateAction
+) => {
+  switch (action.type) {
+    case ProductCreateActionTypes.PRODUCT_CREATE_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case ProductCreateActionTypes.PRODUCT_CREATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        product: action.payload,
+      };
+
+    case ProductCreateActionTypes.PRODUCT_CREATE_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case ProductCreateActionTypes.PRODUCT_CREATE_RESET:
+      return {};
 
     default:
       return state;
