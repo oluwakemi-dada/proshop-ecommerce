@@ -32,6 +32,27 @@
   }
 }
 
+.imageInputGroup {
+  background: #f7f7f9;
+  margin-top: 0.8rem;
+  width: 100%;
+
+  >input {
+    width: 100%;
+  }
+}
+
+.upload {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  label {
+    margin-left: 1.3rem;
+  }
+}
+
 .formCheck {
   display: flex;
   flex-direction: row;
@@ -39,7 +60,7 @@
   margin-bottom: 2rem;
 
   input {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
     width: 2rem;
   }
 }

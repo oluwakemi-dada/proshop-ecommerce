@@ -1,4 +1,4 @@
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
@@ -9,6 +9,7 @@ import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
 import { listProductDetails, updateProduct } from '../actions/productActions';
 import { ProductUpdateActionTypes } from '../types';
+import axios from 'axios';
 
 interface MatchParams {
   id: string;
@@ -27,6 +28,7 @@ const ProductEditScreen = ({ match, history }: ProductEditScreenProps) => {
   const [category, setCategory] = useState<string>('');
   const [countInStock, setCountInStock] = useState<number>(0);
   const [description, setDescription] = useState<string>('');
+  const [uploading, setUploading] = useState<boolean>(false);
 
   // SELECTORS
   const productDetails = useSelector(
@@ -62,6 +64,31 @@ const ProductEditScreen = ({ match, history }: ProductEditScreenProps) => {
     }
   }, [dispatch, history, product, productId, successUpdate]);
 
+  // UPLOAD IMAGE
+  const uploadFileHandler = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0];
+    const formdata = new FormData();
+    formdata.append('image', file);
+    setUploading(true);
+
+    try {
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      
+      const { data } = await axios.post('/api/upload', formdata, config);
+
+      setImage(data);
+      setUploading(false);
+    } catch (error) {
+      console.error(error);
+      setUploading(false);
+    }
+  };
+
+  // SUBMIT FORM
   const submitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
@@ -114,13 +141,24 @@ const ProductEditScreen = ({ match, history }: ProductEditScreenProps) => {
 
             <div className={styles.formGroup}>
               <label htmlFor='image'>Image </label>
-              <input
-                type='text'
-                value={image}
-                onChange={(e) => setImage(e.target.value)}
-                placeholder='Enter image url'
-              />
+              <div className={styles.imageInputGroup}>
+                <input
+                  type='text'
+                  value={image}
+                  onChange={(e) => setImage(e.target.value)}
+                  placeholder='Enter image url'
+                />
+                <div className={styles.upload}>
+                  <label htmlFor='image-file'>Choose file</label>
+                  <input
+                    type='file'
+                    id='image-file'
+                    onChange={uploadFileHandler}
+                  />
+                </div>
+              </div>
             </div>
+            {uploading && <Loader />}
 
             <div className={styles.formGroup}>
               <label htmlFor='brand'>Brand </label>
