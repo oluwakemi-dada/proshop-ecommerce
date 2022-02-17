@@ -4,7 +4,9 @@ import {
   ProductCreateActionTypes,
   ProductListActionTypes,
   ProductDetailsActionTypes,
+  ProductUpdateActionTypes,
   ProductDeleteActionTypes,
+  UpdateProductData,
   Product,
 } from '../types/index';
 import { AppThunk } from '../store';
@@ -109,3 +111,42 @@ export const createProduct = (): AppThunk => async (dispatch, getState) => {
     });
   }
 };
+
+// UPDATE PRODUCT
+
+export const updateProduct =
+  (product: UpdateProductData): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: ProductUpdateActionTypes.PRODUCT_UPDATE_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo!.token}`,
+        },
+      };
+
+      const { data } = await axios.put<Product>(
+        `/api/products/${product._id}`,
+        product,
+        config
+      );
+
+      dispatch({
+        type: ProductUpdateActionTypes.PRODUCT_UPDATE_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: ProductUpdateActionTypes.PRODUCT_UPDATE_FAILURE,
+        payload: errorHandler(error),
+      });
+    }
+  };

@@ -11,6 +11,9 @@ import {
   ProductCreateActionTypes,
   ProductCreateAction,
   ProductCreateState,
+  ProductUpdateActionTypes,
+  ProductUpdateAction,
+  ProductUpdateState,
 } from '../types/index';
 
 const productListInitialState: ProductListState = {
@@ -138,6 +141,42 @@ export const productCreateReducer = (
       };
 
     case ProductCreateActionTypes.PRODUCT_CREATE_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+// PRODUCT UPDATE REDUCER
+const productUpdateInitialState: ProductUpdateState = {
+  loading: false,
+};
+
+export const productUpdateReducer = (
+  state = productUpdateInitialState,
+  action: ProductUpdateAction
+) => {
+  switch (action.type) {
+    case ProductUpdateActionTypes.PRODUCT_UPDATE_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case ProductUpdateActionTypes.PRODUCT_UPDATE_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+        product: action.payload,
+      };
+
+    case ProductUpdateActionTypes.PRODUCT_UPDATE_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case ProductUpdateActionTypes.PRODUCT_UPDATE_RESET:
       return {};
 
     default:

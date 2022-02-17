@@ -2,6 +2,7 @@ export * from './product';
 export * from './productCreate';
 export * from './productList';
 export * from './productDetails';
+export * from './productUpdate';
 export * from './productDelete';
 export * from './cart';
 export * from './userRegister';
