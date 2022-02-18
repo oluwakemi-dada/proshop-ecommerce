@@ -4,6 +4,7 @@ import {
   OrderCreateActionTypes,
   OrderDetailsActionTypes,
   OrderPayActionTypes,
+  OrderDeliverActionTypes,
   OrderListMyActionTypes,
   OrderListActionTypes,
   OrderCreate,
@@ -131,7 +132,43 @@ export const payOrder =
     }
   };
 
-  // LIST MY ORDERS
+// DELIVER ORDER
+export const deliverOrder =
+  (orderId: string): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: OrderDeliverActionTypes.ORDER_DELIVER_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          Authorization: `Bearer ${userInfo!.token}`,
+        },
+      };
+
+      const { data } = await axios.put(
+        `/api/orders/${orderId}/deliver`,
+        {},
+        config
+      );
+
+      dispatch({
+        type: OrderDeliverActionTypes.ORDER_DELIVER_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: OrderDeliverActionTypes.ORDER_DELIVER_FAILURE,
+        payload: errorHandler(error),
+      });
+    }
+  };
+
+// LIST MY ORDERS
 export const listMyOrders = (): AppThunk => async (dispatch, getState) => {
   try {
     dispatch({
@@ -165,36 +202,33 @@ export const listMyOrders = (): AppThunk => async (dispatch, getState) => {
   }
 };
 
-  // LIST ALL ORDERS
-  export const listOrders = (): AppThunk => async (dispatch, getState) => {
-    try {
-      dispatch({
-        type: OrderListActionTypes.ORDER_LIST_REQUEST,
-      });
-  
-      const {
-        userLogin: { userInfo },
-      } = getState();
-  
-      const config = {
-        headers: {
-          Authorization: `Bearer ${userInfo!.token}`,
-        },
-      };
-  
-      const { data } = await axios.get<OrderList[]>(
-        `/api/orders`,
-        config
-      );
-  
-      dispatch({
-        type: OrderListActionTypes.ORDER_LIST_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: OrderListActionTypes.ORDER_LIST_FAILURE,
-        payload: errorHandler(error),
-      });
-    }
-  };
+// LIST ALL ORDERS
+export const listOrders = (): AppThunk => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: OrderListActionTypes.ORDER_LIST_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo!.token}`,
+      },
+    };
+
+    const { data } = await axios.get<OrderList[]>(`/api/orders`, config);
+
+    dispatch({
+      type: OrderListActionTypes.ORDER_LIST_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: OrderListActionTypes.ORDER_LIST_FAILURE,
+      payload: errorHandler(error),
+    });
+  }
+};

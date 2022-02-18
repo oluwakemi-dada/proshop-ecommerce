@@ -149,7 +149,8 @@
   }
 }
 
-.placeOrderBtnWrapper {
+.placeOrderBtnWrapper,
+.deliveredBtnWrapper {
   padding: 1.5rem 2rem;
 }
 
@@ -172,4 +173,14 @@
   @include placeOrderBtn;
   background: #696969;
   cursor: default;
+}
+
+.btnDeliver {
+  @include placeOrderBtn;
+  background: #070707;
+  text-align: center;
+  cursor: pointer;
+  &:hover {
+    background: #222222;
+  }
 }

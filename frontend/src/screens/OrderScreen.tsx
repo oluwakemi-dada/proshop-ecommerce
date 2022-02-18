@@ -8,7 +8,12 @@ import Message from '../components/Message';
 import styles from '../styles/OrderScreen.module.scss';
 import { AppDispatch } from '../store';
 import { ReduxState, OrderPayActionTypes } from '../types';
-import { getOrderDetails, payOrder } from '../actions/orderActions';
+import {
+  getOrderDetails,
+  payOrder,
+  deliverOrder,
+} from '../actions/orderActions';
+import { OrderDeliverActionTypes } from '../types';
 
 declare global {
   interface Window {
@@ -25,6 +30,7 @@ const OrderScreen = ({
   match: {
     params: { id },
   },
+  history,
 }: OrderScreenProps) => {
   const dispatch = useDispatch<AppDispatch>();
 
@@ -33,13 +39,22 @@ const OrderScreen = ({
   const [sdkReady, setSdkReady] = useState<boolean>(false);
 
   // SELECTORS
+  const { userInfo } = useSelector((state: ReduxState) => state.userLogin);
+
   const orderDetails = useSelector((state: ReduxState) => state.orderDetails);
   const { order, loading, error } = orderDetails;
 
   const orderPay = useSelector((state: ReduxState) => state.orderPay);
   const { loading: loadingPay, success: successPay } = orderPay;
 
+  const orderDeliver = useSelector((state: ReduxState) => state.orderDeliver);
+  const { loading: loadingDeliver, success: successDeliver } = orderDeliver;
+
   useEffect(() => {
+    if (!userInfo) {
+      history.push('/login');
+    }
+
     // PAYPAL
     const addPayPayScript = async () => {
       const { data: clientId } = await axios.get('/api/config/paypal');
@@ -54,11 +69,15 @@ const OrderScreen = ({
     };
 
     // GET ORDER DETAILS
-    if (successPay || !order || order._id !== orderId) {
+    if (successPay || successDeliver || !order || order._id !== orderId) {
       dispatch({
         type: OrderPayActionTypes.ORDER_PAY_RESET,
       });
-      
+
+      dispatch({
+        type: OrderDeliverActionTypes.ORDER_DELIVER_RESET,
+      });
+
       dispatch(getOrderDetails(orderId));
     } else if (!order.isPaid) {
       if (!window.paypal) {
@@ -67,12 +86,17 @@ const OrderScreen = ({
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, order, successPay]);
+  }, [dispatch, orderId, order, successPay, successDeliver]);
 
   // PAYMENT SUCCESS
   const successPaymentHandler = (paymentResult: any) => {
     console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
+  };
+
+  // DELIVERY MODE SUCCESS
+  const deliverHandler = () => {
+    dispatch(deliverOrder(orderId));
   };
 
   if (loading) {
@@ -192,6 +216,18 @@ const OrderScreen = ({
                 )}
               </div>
             )}
+
+            {userInfo &&
+              userInfo.isAdmin &&
+              order.isPaid &&
+              !order.isDelivered && (
+                <div className={styles.deliveredBtnWrapper}>
+                  {loadingDeliver && <Loader />}
+                  <div className={styles.btnDeliver} onClick={deliverHandler}>
+                    MARK AS DELIVERED
+                  </div>
+                </div>
+              )}
           </div>
         </div>
       </div>

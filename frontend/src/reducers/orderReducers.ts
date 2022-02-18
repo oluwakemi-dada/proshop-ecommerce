@@ -8,6 +8,9 @@ import {
   OrderPayActionTypes,
   OrderPayAction,
   OrderPayState,
+  OrderDeliverActionTypes,
+  OrderDeliverAction,
+  OrderDeliverState,
   OrderListMyActionTypes,
   OrderListMyAction,
   OrderListMyState,
@@ -79,6 +82,7 @@ export const orderDetailsReducer = (
   }
 };
 
+// ORDER PAY
 const orderPayInitialState: OrderPayState = {};
 
 export const orderPayReducer = (
@@ -104,6 +108,39 @@ export const orderPayReducer = (
       };
 
     case OrderPayActionTypes.ORDER_PAY_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+// ORDER DELIVER
+const orderDeliverInitialState: OrderDeliverState = {};
+
+export const orderDeliverReducer = (
+  state = orderDeliverInitialState,
+  action: OrderDeliverAction
+) => {
+  switch (action.type) {
+    case OrderDeliverActionTypes.ORDER_DELIVER_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case OrderDeliverActionTypes.ORDER_DELIVER_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+
+    case OrderDeliverActionTypes.ORDER_DELIVER_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case OrderDeliverActionTypes.ORDER_DELIVER_RESET:
       return {};
 
     default:
@@ -150,7 +187,7 @@ export const orderListMyReducer = (
 };
 
 // LIST ALL ORDERS
-const orderListInitialState = {
+const orderListInitialState: OrderListState = {
   loading: false,
   orders: [],
 };
