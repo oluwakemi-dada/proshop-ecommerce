@@ -5,6 +5,9 @@ import {
   ProductDetailsActionTypes,
   ProductDetailsAction,
   ProductDetailsState,
+  ProductCreateReviewActionTypes,
+  ProductCreateReviewAction,
+  ProductCreateReviewState,
   ProductDeleteActionTypes,
   ProductDeleteAction,
   ProductDeleteState,
@@ -49,6 +52,7 @@ export const productListReducer = (
   }
 };
 
+// PRODUCT DETAILS REDUCER
 const productDetailsInitialState: ProductDetailsState = {
   loading: false,
 };
@@ -177,6 +181,41 @@ export const productUpdateReducer = (
       };
 
     case ProductUpdateActionTypes.PRODUCT_UPDATE_RESET:
+      return {};
+
+    default:
+      return state;
+  }
+};
+
+// PRODUCT CREATE REVIEW REDUCER
+const productReviewCreateInitialState: ProductCreateReviewState = {
+  loading: false,
+};
+
+export const productReviewCreateReducer = (
+  state = productReviewCreateInitialState,
+  action: ProductCreateReviewAction
+) => {
+  switch (action.type) {
+    case ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_SUCCESS:
+      return {
+        loading: false,
+        success: true,
+      };
+
+    case ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_FAILURE:
+      return {
+        loading: false,
+        error: action.payload,
+      };
+
+    case ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_RESET:
       return {};
 
     default:

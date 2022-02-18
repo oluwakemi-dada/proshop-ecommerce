@@ -112,3 +112,38 @@
   background: #696969;
   cursor: default;
 }
+
+.reviewsSection {
+  margin-top: 3rem;
+  width: 50%;
+
+  h2 {
+    font-weight: 500;
+    font-size: 2.3rem;
+    color: #000;
+
+    @media (max-width: 700px) {
+      font-size: 2rem;
+    }
+
+    @media (max-width: 450px) {
+      font-size: 1.8rem;
+    }
+  }
+}
+
+.reviewItem {
+  padding: 1.3rem 0 1.1rem 0;
+  border-bottom: 1px solid #e0e0e0;
+
+  > * {
+    &:nth-child(3),
+    &:nth-child(4) {
+      margin-bottom: 1rem;
+    }
+  }
+}
+
+.reviewName {
+  font-weight: 500;
+}

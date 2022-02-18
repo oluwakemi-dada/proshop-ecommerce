@@ -4,7 +4,7 @@ import styles from '../styles/Product.module.scss';
 
 interface RatingProps {
   value: number;
-  text: string;
+  text?: string;
 }
 
 const Rating: FC<RatingProps> = ({ value, text }) => {

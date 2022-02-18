@@ -4,6 +4,7 @@ import {
   ProductCreateActionTypes,
   ProductListActionTypes,
   ProductDetailsActionTypes,
+  ProductCreateReviewActionTypes,
   ProductUpdateActionTypes,
   ProductDeleteActionTypes,
   UpdateProductData,
@@ -113,7 +114,6 @@ export const createProduct = (): AppThunk => async (dispatch, getState) => {
 };
 
 // UPDATE PRODUCT
-
 export const updateProduct =
   (product: UpdateProductData): AppThunk =>
   async (dispatch, getState) => {
@@ -146,6 +146,39 @@ export const updateProduct =
     } catch (error) {
       dispatch({
         type: ProductUpdateActionTypes.PRODUCT_UPDATE_FAILURE,
+        payload: errorHandler(error),
+      });
+    }
+  };
+
+// CREATE PRODUCT REVIEW
+export const createProductReview =
+  (productId: string, review: { rating: number; comment: string }): AppThunk =>
+  async (dispatch, getState) => {
+    try {
+      dispatch({
+        type: ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_REQUEST,
+      });
+
+      const {
+        userLogin: { userInfo },
+      } = getState();
+
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${userInfo!.token}`,
+        },
+      };
+
+      await axios.post(`/api/products/${productId}/reviews`, review, config);
+
+      dispatch({
+        type: ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_SUCCESS,
+      });
+    } catch (error) {
+      dispatch({
+        type: ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_FAILURE,
         payload: errorHandler(error),
       });
     }

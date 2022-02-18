@@ -2,6 +2,7 @@ import {
   ProductListState,
   ProductCreateState,
   ProductDetailsState,
+  ProductCreateReviewState,
   ProductUpdateState,
   ProductDeleteState,
   CartState,
@@ -24,6 +25,7 @@ export interface ReduxState {
   productCreate: ProductCreateState;
   productList: ProductListState;
   productDetails: ProductDetailsState;
+  productReviewCreate: ProductCreateReviewState;
   productUpdate: ProductUpdateState;
   productDelete: ProductDeleteState;
   cart: CartState;
