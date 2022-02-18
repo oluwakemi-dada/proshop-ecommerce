@@ -16,6 +16,7 @@ import {
   OrderDetailsState,
   OrderPayState,
   OrderListMyState,
+  OrderListState,
 } from './index';
 
 export interface ReduxState {
@@ -36,4 +37,5 @@ export interface ReduxState {
   orderDetails: OrderDetailsState;
   orderPay: OrderPayState;
   orderListMy: OrderListMyState;
+  orderList: OrderListState;
 }

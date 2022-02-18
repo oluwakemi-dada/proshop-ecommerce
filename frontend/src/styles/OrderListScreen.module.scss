@@ -1,0 +1,83 @@
+.ordersWrapper {
+  position: relative;
+  overflow-x: auto;
+  -ms-overflow-style: none; /* IE 11 */
+  scrollbar-width: none; /* Firefox 64 */
+
+  &::-webkit-scrollbar {
+    width: 0;
+  }
+}
+
+.ordersHeading {
+  position: sticky;
+  top: 0;
+  left: 0;
+}
+
+.ordersTable {
+  margin-top: 2rem;
+}
+
+.tableHead,
+.order {
+  display: grid;
+  grid-template-columns: 0.25fr 0.16fr 0.12fr 0.15fr 0.12fr 0.1fr 0.1fr;
+  grid-gap: 2rem;
+  min-width: 110rem;
+}
+
+.tableHead {
+  font-weight: 500;
+}
+
+.tableHead {
+  padding: 0.9rem 0.8rem;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1.4rem;
+}
+
+.order {
+  padding: 1.4rem 0.8rem;
+
+  &:nth-child(even) {
+    background: #fff;
+  }
+  &:nth-child(odd) {
+    background: #f2f2f2;
+  }
+}
+
+.mailTo {
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.timesIcon {
+  color: #ff0000;
+}
+
+.checkIcon {
+  color: #048804;
+}
+
+.detailsBtn {
+  padding: 0.5rem 0;
+  color: #fff;
+  background: #070707;
+  width: 8rem;
+  font-size: 1.2rem;
+  text-align: center;
+  border: 0;
+  outline: 0;
+
+  &:hover {
+    background: #222222;
+  }
+}
+
+
+
+
