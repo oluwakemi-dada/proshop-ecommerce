@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, FormEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -32,10 +32,6 @@ const ProductScreen = ({
 
   const dispatch = useDispatch<AppDispatch>();
 
-  useEffect(() => {
-    dispatch(listProductDetails(id));
-  }, [id, dispatch]);
-
   // SELECTORS
   const productDetails = useSelector(
     (state: ReduxState) => state.productDetails
@@ -51,8 +47,26 @@ const ProductScreen = ({
   const { error: errorProductReview, success: successProductReview } =
     productReviewCreate;
 
+  useEffect(() => {
+    if (successProductReview) {
+      alert('Review Submitted!');
+      setRating(0);
+      setComment('');
+      dispatch({
+        type: ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_RESET,
+      });
+    }
+    dispatch(listProductDetails(id));
+  }, [id, dispatch, successProductReview]);
+
+  // HANDLERS
   const addToCartHandler = () => {
     history.push(`/cart/${id}?qty=${qty}`);
+  };
+
+  const submitReviewHandler = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    dispatch(createProductReview(id, { rating, comment }));
   };
 
   const productDisplay = () => {
@@ -146,6 +160,48 @@ const ProductScreen = ({
                 </li>
               ))}
             </ul>
+            <div className={styles.createReview}>
+              <h2>WRITE A REVIEW</h2>
+              {errorProductReview && (
+                <Message msg={errorProductReview} variant='danger' />
+              )}
+              {userInfo ? (
+                <form onSubmit={submitReviewHandler} className={styles.form}>
+                  <div className={styles.formGroup}>
+                    <label htmlFor='rating'>Rating</label>
+                    <select
+                      value={rating}
+                      onChange={(e) => setRating(Number(e.target.value))}
+                    >
+                      <option value=''>Select...</option>
+                      <option value='1'>1 - Poor</option>
+                      <option value='2'>2 - Fair</option>
+                      <option value='3'>3 - Good</option>
+                      <option value='4'>4 - Very Good</option>
+                      <option value='5'>5 - Excellent</option>
+                    </select>
+                  </div>
+                  <div className={styles.formGroup}>
+                    <label htmlFor='comment'>Comment</label>
+                    <textarea
+                      value={comment}
+                      onChange={(e) => setComment(e.target.value)}
+                    ></textarea>
+                  </div>
+                  <button type='submit' className={styles.submitBtn}>
+                    SUBMIT
+                  </button>
+                </form>
+              ) : (
+                <div className={styles.createReviewAlert}>
+                  Please{' '}
+                  <Link to='/login'>
+                    <span>Sign in</span>
+                  </Link>{' '}
+                  to write a review
+                </div>
+              )}
+            </div>
           </div>
         </>
       );
