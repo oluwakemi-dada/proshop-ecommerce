@@ -60,9 +60,11 @@
   padding: 0 0.6rem;
   border: 2px solid #4bbf73;
   color: #4bbf73;
+  background: #343a40;
   transition: all 0.3s;
   cursor: pointer;
   font-size: 1.2rem;
+  outline: 0;
 
   &:hover {
     background: #4bbf73;

@@ -1,9 +1,10 @@
 import { FC, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Route } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaShoppingCart, FaUser, FaTimes } from 'react-icons/fa';
 import { RiMenu3Line } from 'react-icons/ri';
 import styled from 'styled-components';
+import SearchBox from './SearchBox';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
 import { logout } from '../actions/userActions';
@@ -72,14 +73,7 @@ const Header: FC = () => {
             {clicked ? <FaTimes /> : <RiMenu3Line />}
           </div>
           <NavMenu clicked={clicked}>
-            <div className={styles.searchInputBtn}>
-              <input
-                type='text'
-                placeholder='Search Products...'
-                className={styles.searchInput}
-              />
-              <div className={styles.searchBtn}>SEARCH</div>
-            </div>
+            <SearchBox />
             <div className={styles.navLinks}>
               <Link to='/cart'>
                 <div className={styles.cart}>
