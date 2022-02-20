@@ -1,0 +1,40 @@
+.pages {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 4rem;
+
+  > * {
+    margin-right: 0.6rem;
+  }
+}
+
+@mixin Center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  @include Center;
+  width: 4rem;
+  height: 3.7rem;
+  color: #fff;
+  background: #070707;
+  border: 1px solid 070707;
+
+  &:hover {
+    background: #292929;
+  }
+}
+
+.inactive {
+  @include Center;
+  width: 4rem;
+  height: 3.7rem;
+  border: 1px solid #e0e0e0;
+
+  &:hover {
+    background: #f5f3f3;
+  }
+}

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, RouteComponentProps } from 'react-router-dom';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
+import Pagination from '../components/Pagination';
 import styles from '../styles/ProductListScreen.module.scss';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
@@ -17,19 +18,24 @@ import { ProductCreateActionTypes } from '../types';
 
 interface MatchParams {
   id: string;
+  pageNumber: string;
 }
 
 interface ProductListScreenProps extends RouteComponentProps<MatchParams> {}
 
 const ProductListScreen: FC<ProductListScreenProps> = ({
-  match: { params: id },
+  match: {
+    params: { id, pageNumber: pageNum },
+  },
   history,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
 
+  const pageNumber = pageNum || '1';
+
   // SELECTORS
   const productList = useSelector((state: ReduxState) => state.productList);
-  const { loading, error, products } = productList;
+  const { loading, error, products, pages, page } = productList;
 
   const productDelete = useSelector((state: ReduxState) => state.productDelete);
   const {
@@ -61,7 +67,7 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
     if (successCreate) {
       history.push(`/admin/product/${createdProduct!._id}/edit`);
     } else {
-      dispatch(listProducts());
+      dispatch(listProducts('', pageNumber));
     }
   }, [
     dispatch,
@@ -70,6 +76,7 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
     successDelete,
     successCreate,
     createdProduct,
+    pageNumber,
   ]);
 
   // DELETE PRODUCT
@@ -103,41 +110,44 @@ const ProductListScreen: FC<ProductListScreenProps> = ({
       ) : error ? (
         <Message msg={error} variant='danger' />
       ) : (
-        <div className={styles.productsTable}>
-          <div className={styles.tableHead}>
-            <div>ID</div>
-            <div>NAME</div>
-            <div>PRICE</div>
-            <div>CATEGORY</div>
-            <div>BRAND</div>
-            <div></div>
-          </div>
-          <div>
-            {products.map((product) => (
-              <div key={product._id} className={styles.user}>
-                <div>{product._id}</div>
-                <div>{product.name}</div>
-                <div>${product.price}</div>
-                <div>{product.category}</div>
-                <div>{product.brand}</div>
-                <div className={styles.deleteEditIcons}>
-                  <Link to={`/admin/product/${product._id}/edit`}>
-                    <div className={styles.editIcon}>
-                      <FaEdit />
-                    </div>
-                  </Link>
+        <>
+          <div className={styles.productsTable}>
+            <div className={styles.tableHead}>
+              <div>ID</div>
+              <div>NAME</div>
+              <div>PRICE</div>
+              <div>CATEGORY</div>
+              <div>BRAND</div>
+              <div></div>
+            </div>
+            <div>
+              {products.map((product) => (
+                <div key={product._id} className={styles.user}>
+                  <div>{product._id}</div>
+                  <div>{product.name}</div>
+                  <div>${product.price}</div>
+                  <div>{product.category}</div>
+                  <div>{product.brand}</div>
+                  <div className={styles.deleteEditIcons}>
+                    <Link to={`/admin/product/${product._id}/edit`}>
+                      <div className={styles.editIcon}>
+                        <FaEdit />
+                      </div>
+                    </Link>
 
-                  <div
-                    onClick={() => deleteProductHandler(product._id)}
-                    className={styles.deleteIcon}
-                  >
-                    <AiFillDelete />
+                    <div
+                      onClick={() => deleteProductHandler(product._id)}
+                      className={styles.deleteIcon}
+                    >
+                      <AiFillDelete />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+          {pages && page && <Pagination page={page} pages={pages} isAdmin={true} />}
+        </>
       )}
     </div>
   );

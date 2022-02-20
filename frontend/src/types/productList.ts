@@ -1,8 +1,10 @@
 import { Product } from './index';
 
 export interface ProductListState {
-  products: Product[];
   loading: boolean;
+  products: Product[];
+  pages?: number;
+  page?: number;
   error?: undefined;
 }
 
@@ -18,7 +20,7 @@ export interface GetProductsRequestAction {
 
 export interface GetProductsSuccessAction {
   type: ProductListActionTypes.PRODUCT_LIST_SUCCESS;
-  payload: { products: Product[] };
+  payload: { products: Product[]; pages: number; page: number };
 }
 
 export interface GetProductsFailureAction {
