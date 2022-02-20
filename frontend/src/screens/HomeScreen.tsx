@@ -1,6 +1,7 @@
 import { FC, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Link } from 'react-router-dom';
+import Meta from '../components/Meta';
 import Product from '../components/Product';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -35,6 +36,11 @@ const HomeScreen: FC<HomeScreenProps> = ({
 
   return (
     <>
+      <Meta />
+      {keyword && <Link to='/'>
+        <div className={styles.back}>GO BACK</div>
+      </Link> }
+      
       <h1>LATEST PRODUCTS</h1>
       {loading ? (
         <Loader />

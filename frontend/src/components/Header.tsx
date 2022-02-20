@@ -1,5 +1,5 @@
 import { FC, useState } from 'react';
-import { Link, Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { FaShoppingCart, FaUser, FaTimes } from 'react-icons/fa';
 import { RiMenu3Line } from 'react-icons/ri';
@@ -60,6 +60,7 @@ const Header: FC = () => {
 
   const logoutHandler = () => {
     dispatch(logout());
+    setClicked(false);
   };
 
   return (
@@ -76,21 +77,27 @@ const Header: FC = () => {
             <SearchBox />
             <div className={styles.navLinks}>
               <Link to='/cart'>
-                <div className={styles.cart}>
+                <div className={styles.cart} onClick={() => setClicked(false)}>
                   <FaShoppingCart />
                   <span>CART</span>
                 </div>
               </Link>
               {userInfo ? (
                 <Link to='/profile'>
-                  <div className={styles.user}>
+                  <div
+                    className={styles.user}
+                    onClick={() => setClicked(false)}
+                  >
                     <FaUser className={styles.userIcon} />
                     <div>{userInfo.name.toUpperCase()}</div>
                   </div>
                 </Link>
               ) : (
                 <Link to='/login'>
-                  <div className={styles.signIn}>
+                  <div
+                    className={styles.signIn}
+                    onClick={() => setClicked(false)}
+                  >
                     <FaUser />
                     <span>SIGN IN</span>
                   </div>
@@ -99,19 +106,34 @@ const Header: FC = () => {
 
               {userInfo && userInfo.isAdmin && (
                 <Link to='/admin/userlist'>
-                  <div className={styles.users}>USERS</div>
+                  <div
+                    className={styles.users}
+                    onClick={() => setClicked(false)}
+                  >
+                    USERS
+                  </div>
                 </Link>
               )}
 
               {userInfo && userInfo.isAdmin && (
                 <Link to='/admin/productlist'>
-                  <div className={styles.products}>PRODUCTS</div>
+                  <div
+                    className={styles.products}
+                    onClick={() => setClicked(false)}
+                  >
+                    PRODUCTS
+                  </div>
                 </Link>
               )}
 
               {userInfo && userInfo.isAdmin && (
                 <Link to='/admin/orderlist'>
-                  <div className={styles.orders}>ORDERS</div>
+                  <div
+                    className={styles.orders}
+                    onClick={() => setClicked(false)}
+                  >
+                    ORDERS
+                  </div>
                 </Link>
               )}
 

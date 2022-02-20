@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import styles from '../styles/ProductScreen.module.scss';
+import Meta from '../components/Meta';
 import Rating from '../components/Rating';
 import Loader from '../components/Loader';
 import Message from '../components/Message';
@@ -77,6 +78,7 @@ const ProductScreen = ({
     } else if (product) {
       return (
         <>
+          <Meta title={product.name} />
           <div className={styles.contents}>
             <img src={product.image} alt={product?.name} />
 
