@@ -23,6 +23,19 @@
   letter-spacing: 0.3rem;
 }
 
+.imageContainer {
+  overflow: hidden;
+
+  img {
+    display: block;
+  }
+
+  &:hover img {
+    transform: scale(1.15);
+    transition: transform 1.2s;
+  }
+}
+
 // RATING
 .rating {
   margin: 1rem 0 0.4rem 0;
@@ -35,5 +48,5 @@
 }
 
 .ratingText {
-  margin-left: .7rem;
+  margin-left: 0.7rem;
 }

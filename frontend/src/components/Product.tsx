@@ -12,7 +12,9 @@ const Product: FC<ProductProps> = ({ product }) => {
   return (
     <div className={styles.card}>
       <Link to={`/product/${product._id}`}>
-        <img src={product.image} alt='' />
+        <div className={styles.imageContainer}>
+          <img src={product.image} alt='' />
+        </div>
       </Link>
       <div className={styles.productDetails}>
         <Link to={`/product/${product._id}`}>
