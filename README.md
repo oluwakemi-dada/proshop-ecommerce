@@ -32,10 +32,13 @@ Create a file called .env in root folder and add the following variables in orde
 
 ## Start Application
 
+In the project directory, run:
+
 `npm run dev`
 
 This runs both the frontend and the backend concurrently in the development mode.
 Open [http://localhost:3000]('http://localhost:3000') to view it in the browser.
+Open [http://localhost:5000]('http://localhost:5000') to test on postman.
 
 The page will reload if you make edits.
 You will also see any lint errors in the console.
