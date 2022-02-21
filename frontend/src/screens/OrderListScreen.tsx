@@ -8,8 +8,7 @@ import Loader from '../components/Loader';
 import styles from '../styles/OrderListScreen.module.scss';
 import { AppDispatch } from '../store';
 import { ReduxState } from '../types';
-import { FaTimes, FaCheck, FaEdit } from 'react-icons/fa';
-import { AiFillDelete } from 'react-icons/ai';
+import { FaTimes} from 'react-icons/fa';
 import { listOrders } from '../actions/orderActions';
 
 const OrderListScreen: FC<RouteComponentProps> = ({ history }) => {
