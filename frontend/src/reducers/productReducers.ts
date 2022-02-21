@@ -217,6 +217,11 @@ export const productReviewCreateReducer = (
         error: action.payload,
       };
 
+    case ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_FAILURE_RESET:
+      return {
+        loading: false,
+      };
+
     case ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_RESET:
       return {};
 

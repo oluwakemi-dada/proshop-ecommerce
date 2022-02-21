@@ -46,6 +46,14 @@ export const login =
         type: UserLoginActionTypes.USER_LOGIN_FAILURE,
         payload: errorHandler(error),
       });
+
+      setTimeout(
+        () =>
+          dispatch({
+            type: UserLoginActionTypes.USER_LOGIN_FAILURE_RESET,
+          }),
+        5000
+      );
     }
   };
 
@@ -101,6 +109,14 @@ export const register =
         type: UserRegisterActionTypes.USER_REGISTER_FAILURE,
         payload: errorHandler(error),
       });
+
+      setTimeout(
+        () =>
+          dispatch({
+            type: UserRegisterActionTypes.USER_REGISTER_FAILURE_RESET,
+          }),
+        5000
+      );
     }
   };
 

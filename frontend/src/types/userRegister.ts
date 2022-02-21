@@ -10,6 +10,7 @@ export enum UserRegisterActionTypes {
   USER_REGISTER_REQUEST = 'USER_REGISTER_REQUEST',
   USER_REGISTER_SUCCESS = 'USER_REGISTER_SUCCESS',
   USER_REGISTER_FAILURE = 'USER_REGISTER_FAILURE',
+  USER_REGISTER_FAILURE_RESET = 'USER_REGISTER_FAILURE_RESET',
 }
 
 export interface UserRegisterRequestAction {
@@ -23,10 +24,15 @@ export interface UserRegisterSuccessAction {
 
 export interface UserRegisterFailureAction {
   type: UserRegisterActionTypes.USER_REGISTER_FAILURE;
-  payload: any
+  payload: any;
+}
+
+export interface UserRegisterFailureResetAction {
+  type: UserRegisterActionTypes.USER_REGISTER_FAILURE_RESET;
 }
 
 export type UserRegisterAction =
   | UserRegisterRequestAction
   | UserRegisterSuccessAction
-  | UserRegisterFailureAction;
+  | UserRegisterFailureAction
+  | UserRegisterFailureResetAction;

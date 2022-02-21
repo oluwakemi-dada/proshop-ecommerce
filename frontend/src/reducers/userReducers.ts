@@ -48,6 +48,11 @@ export const userLoginReducer = (
         error: action.payload,
       };
 
+    case UserLoginActionTypes.USER_LOGIN_FAILURE_RESET:
+      return {
+        loading: false,
+      };
+
     case UserLoginActionTypes.USER_LOGOUT:
       return {};
 
@@ -80,6 +85,11 @@ export const userRegisterReducer = (
       return {
         loading: false,
         error: action.payload,
+      };
+
+    case UserRegisterActionTypes.USER_REGISTER_FAILURE_RESET:
+      return {
+        loading: false,
       };
 
     default:

@@ -185,5 +185,13 @@ export const createProductReview =
         type: ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_FAILURE,
         payload: errorHandler(error),
       });
+
+      setTimeout(
+        () =>
+          dispatch({
+            type: ProductCreateReviewActionTypes.PRODUCT_CREATE_REVIEW_FAILURE_RESET,
+          }),
+        5000
+      );
     }
   };
