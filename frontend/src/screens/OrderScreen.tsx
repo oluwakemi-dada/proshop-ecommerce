@@ -13,6 +13,7 @@ import {
   payOrder,
   deliverOrder,
 } from '../actions/orderActions';
+import { removeFromCart } from '../actions/cartActions';
 import { OrderDeliverActionTypes } from '../types';
 
 declare global {
@@ -86,12 +87,21 @@ const OrderScreen = ({
         setSdkReady(true);
       }
     }
-  }, [dispatch, orderId, order, successPay, successDeliver]);
+  }, [dispatch, orderId, order, successPay, successDeliver, userInfo, history]);
+
+  // REMOVE PAID ITEMS FROM CART
+  const removePaidItemsFromCart = () => {
+    orderDetails.order?.orderItems.forEach((item) => {
+      dispatch(removeFromCart(item.product));
+    });
+  };
 
   // PAYMENT SUCCESS
   const successPaymentHandler = (paymentResult: any) => {
-    console.log(paymentResult);
     dispatch(payOrder(orderId, paymentResult));
+
+    // Remove item from cart
+    removePaidItemsFromCart();
   };
 
   // DELIVERY MODE SUCCESS

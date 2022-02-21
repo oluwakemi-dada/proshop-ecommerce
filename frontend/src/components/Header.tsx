@@ -68,7 +68,9 @@ const Header: FC = () => {
       <div className='container'>
         <nav className={styles.nav}>
           <Link to='/'>
-            <h1 className={styles.logo}>PROSHOP</h1>
+            <h1 className={styles.logo} onClick={() => setClicked(false)}>
+              PROSHOP
+            </h1>
           </Link>
           <div className={styles.menuIcon} onClick={() => setClicked(!clicked)}>
             {clicked ? <FaTimes /> : <RiMenu3Line />}
