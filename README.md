@@ -10,6 +10,7 @@ Preview App - [ProShop e-Commerce](https://proshop-ecommerce123.herokuapp.com)
 - Redux
 - JavaScript
 - TypeScript
+- SCSS
 - Nodejs
 - Express
 - MongoDB
